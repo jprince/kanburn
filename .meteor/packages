@@ -6,3 +6,7 @@
 meteor-platform
 autopublish
 insecure
+coffeescript
+fourseven:scss
+d3
+
