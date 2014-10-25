@@ -3,12 +3,18 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="layout">
+  <header>
+    {{> yield region='header'}}
+  </header>
+
+  <div id="main">
+    {{> yield}}
+  </div>
+
+  <footer>
+    {{> yield region='footer'}}
+  </footer>
 </template>
