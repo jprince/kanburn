@@ -1,3 +1,20 @@
 <template name="home">
-  <h2>Fancy awesomeness to go here</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Story Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ #each tickets }}
+      <tr>
+        <td>{{ title }}</td>
+        <td>{{ priority }}</td>
+        <td>{{ points }}</td>
+      </tr>
+      {{ /each }}
+    </tbody>
+  </table>
 </template>
