@@ -8,5 +8,6 @@ Router.configure(
 )
 
 Router.map ->
-  @route 'home', path: '/'
   @route 'admin', path: '/admin'
+  @route 'home', path: '/'
+  @route 'release', path: '/admin/release'

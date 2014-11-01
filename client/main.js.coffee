@@ -7,9 +7,7 @@ Template.home.helpers
   checked: ->
     checked: true if @toString() in Session.get('components')
   tickets: ->
-    Tickets.find(
-      { component: $in: Session.get('components') }
-    )
+    Tickets.find(component: $in: Session.get('components'))
 
 Template.home.events 'click input[type=checkbox]': (event, template) ->
   checkedCheckboxes = template.$('input:checked')
@@ -17,3 +15,7 @@ Template.home.events 'click input[type=checkbox]': (event, template) ->
     checkbox.value
 
   Session.set 'components', selectedComponents
+
+Template.release.helpers
+  editingDoc: ->
+    Release.findOne()
