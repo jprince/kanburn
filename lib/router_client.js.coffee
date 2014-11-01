@@ -5,6 +5,8 @@ Router.configure(
       to: 'header'
     footer:
       to: 'footer'
+    filter:
+      to: 'filter'
 )
 
 Router.map ->
