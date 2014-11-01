@@ -2,16 +2,24 @@
   <table>
     <thead>
       <tr>
-        <th>Description</th>
+        <th>Component</th>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Title</th>
         <th>Priority</th>
+        <th>Status</th>
         <th>Story Points</th>
       </tr>
     </thead>
     <tbody>
       {{ #each tickets }}
       <tr>
+        <td>{{ component }}</td>
+        <td>{{ id }}</td>
+        <td>{{ type }}</td>
         <td>{{ title }}</td>
         <td>{{ priority }}</td>
+        <td>{{ status }}</td>
         <td>{{ points }}</td>
       </tr>
       {{ /each }}

@@ -33,11 +33,13 @@ $ meteor --port <port>
 Install [MongoDB][].
 [MongoDB]: http://www.mongodb.org/downloads
 
-Create a CSV file of tickets and save it in your downloads folder.
+Copy the two ticket CSV files in the `server/seeds` directory to the folder where you saved your
+MongoDB download.
 
 From within the `bin` directory of the MongoDB package, run:
 ```sh
-./mongoimport -h localhost:3001 --db meteor --collection tickets --type csv --file ../../data.csv --fields type,id,title,priorty,status,points
+./mongoimport -h localhost:3001 --db meteor --collection tickets --type csv --file ../../non_bug_tickets.csv --fields component,id,type,title,priority,status,points
+./mongoimport -h localhost:3001 --db meteor --collection tickets --type csv --file ../../bug_tickets.csv --fields component,id,type,title,priority,status,points
 ```
 
 If you fail to connect to the database, check your running processes to see which port your Meteor
