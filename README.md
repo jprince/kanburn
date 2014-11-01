@@ -33,7 +33,7 @@ $ meteor --port <port>
 Install [MongoDB][].
 [MongoDB]: http://www.mongodb.org/downloads
 
-Copy the two ticket CSV files in the `server/seeds` directory to the folder where you saved your
+Copy the two ticket CSV files in the `server/samples` directory to the folder where you saved your
 MongoDB download.
 
 From within the `bin` directory of the MongoDB package, run:
@@ -45,5 +45,10 @@ From within the `bin` directory of the MongoDB package, run:
 If you fail to connect to the database, check your running processes to see which port your Meteor
 DB is running on. Update `localhost:3001` in the above command to reflect the appropriate port.
 
-### To delete all tickets
-Run `Meteor.call('removeAllTickets')` from the console.
+Seeds for tickets and the release will be run automatically by Meteor.
+
+### Deleting data
+The following methods can be executed from the console:
+- `Meteor.call('removeAllSettings')`
+- `Meteor.call('removeAllTickets')`
+- `Meteor.call('removeRelease')`

@@ -19,3 +19,11 @@ Template.home.events 'click input[type=checkbox]': (event, template) ->
 Template.release.helpers
   editingDoc: ->
     Release.findOne()
+
+Template.settings.helpers
+  editingDoc: ->
+    selectedSquad = Session.get('selectedSquad') or components[0]
+    Settings.findOne({ squad: selectedSquad })
+
+Template.settings.events 'click .btn': (event) ->
+  Session.set 'selectedSquad', event.currentTarget.value

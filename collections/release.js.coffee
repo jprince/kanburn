@@ -3,9 +3,8 @@
 Release.attachSchema(new SimpleSchema(
   name:
     type: String
-    label: "Current Release"
+    label: "Current release"
     max: 20
   releaseDate:
     type: Date
-    label: "Release Date"
 ))
