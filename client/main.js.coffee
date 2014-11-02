@@ -18,11 +18,8 @@ getEstimatedCompletionDate = (squad, settings) ->
 
   addWeekdaysToToday = (days) ->
     currentDate = moment()
-    while days > 0
+    while days > 1
       switch currentDate.isoWeekday()
-        when 5
-          currentDate.add(3, 'd')
-          days--
         when 6
           currentDate.add(2, 'd')
         when 7
