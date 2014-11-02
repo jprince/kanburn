@@ -9,7 +9,14 @@
 
   <div>
     <p>Days Remaining - {{ daysRemaining }}</p>
-    <p>Est. Completion Date - {{ completionDate }}</p>
+    <p>
+      Est. Completion Date - {{ completionDate }}
+      {{ #if onSchedule }}
+        <i class="icon fa fa-check-circle"></i>
+      {{ else }}
+        <i class=" icon fa fa-exclamation-triangle"></i>
+      {{ /if }}
+    </p>
   </div>
 
   <table class="table table-striped table-condensed">
