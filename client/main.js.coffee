@@ -45,7 +45,7 @@ openTicketsForSquad = (squad) ->
   Tickets.find(
     component: squad
     points: $gt: 0
-    status: $ne: 'Closed'
+    status: $nin: ['Closed', 'Deployed']
   ).fetch()
 
 # Home
