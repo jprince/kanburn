@@ -1,27 +1,31 @@
 squads = ['Front End', 'Platform']
 Session.setDefault 'selectedSquad', squads[0]
 
+calculateDaysRemaining = (openTickets, settings) ->
+    _(openTickets).where({points: 1}).length * settings.oneStoryPointEstimate +
+    _(openTickets).where({points: 2}).length * settings.twoStoryPointEstimate +
+    _(openTickets).where({points: 3}).length * settings.threeStoryPointEstimate +
+    _(openTickets).where({points: 4}).length * settings.fourStoryPointEstimate +
+    _(openTickets).where({points: 5}).length * settings.fiveStoryPointEstimate
+
+getSettingsForSquad = (squad) ->
+  Settings.find(
+    squad: squad
+  ).fetch()[0]
+
+openTicketsForSquad = (squad) ->
+  Tickets.find(
+    component: squad
+    points: $gt: 0
+    status: $ne: 'Closed'
+  ).fetch()
+
 Template.home.helpers
   completionDate: ->
-    selectedSquad = Session.get('selectedSquad') or squads[0]
+    selectedSquad = Session.get('selectedSquad')
+    settings = getSettingsForSquad(selectedSquad)
 
-    openTickets = Tickets.find(
-      component: selectedSquad
-      points: $gt: 0
-      status: $ne: 'Closed'
-    ).fetch()
-
-    settings = Settings.find(
-      squad: selectedSquad
-    ).fetch()[0]
-
-    daysRemaining =
-      _(openTickets).where({points: 1}).length * settings.oneStoryPointEstimate +
-      _(openTickets).where({points: 2}).length * settings.twoStoryPointEstimate +
-      _(openTickets).where({points: 3}).length * settings.threeStoryPointEstimate +
-      _(openTickets).where({points: 4}).length * settings.fourStoryPointEstimate +
-      _(openTickets).where({points: 5}).length * settings.fiveStoryPointEstimate
-
+    daysRemaining = calculateDaysRemaining(openTicketsForSquad(selectedSquad), settings)
     calendarDaysRemaining =
       Math.ceil((daysRemaining * (1 + settings.riskMultiplier))/settings.velocity)
 
@@ -41,6 +45,9 @@ Template.home.helpers
             days--
       currentDate
     addWeekdaysToToday(calendarDaysRemaining).format('MMMM DD')
+  daysRemaining: ->
+    selectedSquad = Session.get('selectedSquad')
+    calculateDaysRemaining(openTicketsForSquad(selectedSquad), getSettingsForSquad(selectedSquad))
   tickets: ->
     Tickets.find(component: Session.get('selectedSquad'))
 

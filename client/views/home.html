@@ -1,11 +1,14 @@
 <template name="home">
-  <a href="/admin">Admin</a>
+  <div>
+    <a href="/admin">Admin</a>
+  </div>
   <div class="btn-group" data-toggle="buttons-radio">
     <button type="radio" class="btn active" name="squad" value="Front End" checked="checked">Front End</button>
     <button type="radio" class="btn" name="squad" value="Platform">Platform</button>
   </div>
 
   <div>
+    <p>Days Remaining - {{ daysRemaining }}</p>
     <p>Est. Completion Date - {{ completionDate }}</p>
   </div>
 
