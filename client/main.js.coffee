@@ -47,10 +47,20 @@ openTicketsForSquad = (squad) ->
 
 # Home
 Template.home.helpers
+  allTickets: ->
+    Tickets.find(component: Session.get('selectedSquad'))
+
   completionDate: ->
     selectedSquad = Session.get('selectedSquad')
     settings = getSettingsForSquad(selectedSquad)
     getEstimatedCompletionDate(selectedSquad, settings).format('MMMM DD')
+
+  criticalBugs: ->
+    Tickets.find(
+      component: Session.get('selectedSquad')
+      priority: 'Critical'
+      type: 'Bug'
+    )
 
   daysRemaining: ->
     selectedSquad = Session.get('selectedSquad')
@@ -64,8 +74,14 @@ Template.home.helpers
     releaseDate = getRelease().releaseDate
     estimatedCompletionDate <= releaseDate
 
-  tickets: ->
-    Tickets.find(component: Session.get('selectedSquad'))
+  withoutComponent: ->
+    Tickets.find(component: '')
+
+  withoutEstimate: ->
+    Tickets.find(
+      component: Session.get('selectedSquad')
+      points: ''
+    )
 
 Template.home.events 'click .btn': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
