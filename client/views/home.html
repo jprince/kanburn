@@ -1,14 +1,13 @@
 <template name="home">
   <a href="/admin">Admin</a>
-  <section id="filters">
-    {{ #each components }}
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" value="{{ . }}" {{ checked }} /> {{ . }}
-        </label>
-      </div>
-    {{ /each }}
-  </section>
+  <div class="btn-group" data-toggle="buttons-radio">
+    <button type="radio" class="btn active" name="squad" value="Front End" checked="checked">Front End</button>
+    <button type="radio" class="btn" name="squad" value="Platform">Platform</button>
+  </div>
+
+  <div>
+    <p>Est. Completion Date - {{ completionDate }}</p>
+  </div>
 
   <table class="table table-striped table-condensed">
     <thead>

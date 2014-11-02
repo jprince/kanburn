@@ -13,4 +13,5 @@ iron:router
 bootstrap
 aldeed:autoform
 aldeed:collection2
+mrt:moment
 
