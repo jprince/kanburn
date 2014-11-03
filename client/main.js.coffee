@@ -28,14 +28,22 @@ drawDonutChart = (data) ->
         .call chart
     chart
 
-getBugsGroupedByPriority = (squad) ->
-  bugs = Tickets.find(
-    component: squad
+getAllBugs = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
     type: 'Bug'
   ).fetch()
 
-  groupedData = _(bugs).groupBy('priority')
+getBugsGroupedByPriority = ->
+  groupedData = _(getAllBugs()).groupBy('priority')
   aggregatedData = _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
+
+getCriticalBugs = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+    priority: 'Critical'
+    type: 'Bug'
+  ).fetch()
 
 getEstimatedCompletionDate = (squad, settings) ->
   unless settings is undefined
@@ -65,6 +73,15 @@ getSettingsForSquad = (squad) ->
     squad: squad
   ).fetch()[0]
 
+getTicketsWithoutComponents = ->
+  Tickets.find(component: '').fetch()
+
+getTicketsWithoutEstimates = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+    points: ''
+  ).fetch()
+
 openTicketsForSquad = (squad) ->
   Tickets.find(
     component: squad
@@ -80,11 +97,7 @@ Template.home.helpers
     getEstimatedCompletionDate(selectedSquad, settings).format('MMMM DD')
 
   criticalBugs: ->
-    Tickets.find(
-      component: Session.get('selectedSquad')
-      priority: 'Critical'
-      type: 'Bug'
-    )
+    getCriticalBugs()
 
   daysRemaining: ->
     selectedSquad = Session.get('selectedSquad')
@@ -98,18 +111,26 @@ Template.home.helpers
     releaseDate = getRelease().releaseDate
     estimatedCompletionDate <= releaseDate
 
+  thereAreBugs: ->
+    not _(getAllBugs()).isEmpty()
+
+  thereAreCriticalBugs: ->
+    not _(getCriticalBugs()).isEmpty()
+
+  thereAreTicketsWithoutComponents: ->
+    not _(getTicketsWithoutComponents()).isEmpty()
+
+  thereAreTicketsWithoutEstimates: ->
+    not _(getTicketsWithoutEstimates()).isEmpty()
+
   withoutComponent: ->
-    Tickets.find(component: '')
+    getTicketsWithoutComponents()
 
   withoutEstimate: ->
-    Tickets.find(
-      component: Session.get('selectedSquad')
-      points: ''
-    )
+    getTicketsWithoutEstimates()
 
 Template.home.rendered = ->
-  aggregatedData = getBugsGroupedByPriority(Session.get('selectedSquad'))
-  drawDonutChart(aggregatedData)
+  drawDonutChart(getBugsGroupedByPriority())
 
 Template.home.events 'click .btn': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
@@ -130,6 +151,4 @@ Template.settings.events 'click .btn': (event) ->
 
 # Watch Dependencies
 Tracker.autorun ->
-  selectedSquad = Session.get('selectedSquad')
-  updatedAggregateBugData = getBugsGroupedByPriority(selectedSquad)
-  drawDonutChart(updatedAggregateBugData)
+  drawDonutChart(getBugsGroupedByPriority())

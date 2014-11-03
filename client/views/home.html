@@ -19,23 +19,31 @@
     </p>
   </div>
 
-  <div id="bug-chart">
-    <h3>Open Defects, by Priority</h3>
-    <svg></svg>
-  </div>
+  {{ #if thereAreBugs }}
+    <div id="bug-chart">
+      <h3>Open Defects, by Priority</h3>
+      <svg></svg>
+    </div>
+  {{ /if }}
 
-  <div>
-    <h3>Critical Defects</h3>
-    {{> ticketList tickets=criticalBugs}}
-  </div>
+  {{ #if thereAreCriticalBugs }}
+    <div>
+      <h3>Critical Defects</h3>
+      {{> ticketList tickets=criticalBugs}}
+    </div>
+  {{ /if }}
 
-  <div>
-    <h3>Tickets Without Estimates</h3>
-    {{> ticketList tickets=withoutEstimate}}
-  </div>
+  {{ #if thereAreTicketsWithoutEstimates }}
+    <div>
+      <h3>Tickets Without Estimates</h3>
+      {{> ticketList tickets=withoutEstimate}}
+    </div>
+  {{ /if }}
 
-  <div>
-    <h3>Tickets Without Components</h3>
-    {{> ticketList tickets=withoutComponent}}
-  </div>
+  {{ #if thereAreTicketsWithoutComponents }}
+    <div>
+      <h3>Tickets Without Components</h3>
+      {{> ticketList tickets=withoutComponent}}
+    </div>
+  {{ /if }}
 </template>
