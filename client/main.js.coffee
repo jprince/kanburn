@@ -45,9 +45,10 @@ getCriticalBugs = ->
     type: 'Bug'
   ).fetch()
 
-getEstimatedCompletionDate = (squad, settings) ->
+getEstimatedCompletionDate = ->
+  settings = getSettings()
   unless settings is undefined
-    daysRemaining = calculateDaysRemaining(openTicketsForSquad(squad), settings)
+    daysRemaining = calculateDaysRemaining(getOpenTickets(), settings)
     calendarDaysRemaining =
       Math.ceil((daysRemaining * (1 + settings.riskMultiplier))/settings.velocity)
 
@@ -65,12 +66,19 @@ getEstimatedCompletionDate = (squad, settings) ->
     currentDate
   addWeekdaysToToday(calendarDaysRemaining)
 
+getOpenTickets = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+    points: $gt: 0
+    status: $nin: ['Closed', 'Deployed']
+  ).fetch()
+
 getRelease = ->
   Release.findOne() or {}
 
-getSettingsForSquad = (squad) ->
+getSettings = ->
   Settings.find(
-    squad: squad
+    squad: Session.get('selectedSquad')
   ).fetch()[0]
 
 getTicketsWithoutComponents = ->
@@ -82,33 +90,21 @@ getTicketsWithoutEstimates = ->
     points: ''
   ).fetch()
 
-openTicketsForSquad = (squad) ->
-  Tickets.find(
-    component: squad
-    points: $gt: 0
-    status: $nin: ['Closed', 'Deployed']
-  ).fetch()
-
 # Home
 Template.home.helpers
   completionDate: ->
-    selectedSquad = Session.get('selectedSquad')
-    settings = getSettingsForSquad(selectedSquad)
-    getEstimatedCompletionDate(selectedSquad, settings).format('MMMM DD')
+    getEstimatedCompletionDate().format('MMMM DD')
 
   criticalBugs: ->
     getCriticalBugs()
 
   daysRemaining: ->
-    selectedSquad = Session.get('selectedSquad')
-    calculateDaysRemaining(openTicketsForSquad(selectedSquad), getSettingsForSquad(selectedSquad))
+    calculateDaysRemaining(getOpenTickets(), getSettings())
 
   onSchedule: ->
-    selectedSquad = Session.get('selectedSquad')
-    settings = getSettingsForSquad(selectedSquad)
-    estimatedCompletionDate = getEstimatedCompletionDate(selectedSquad, settings)
-
+    estimatedCompletionDate = getEstimatedCompletionDate()
     releaseDate = getRelease().releaseDate
+
     estimatedCompletionDate <= releaseDate
 
   thereAreBugs: ->
@@ -143,8 +139,7 @@ Template.release.helpers
 # Admin - Settings
 Template.settings.helpers
   editingDoc: ->
-    selectedSquad = Session.get('selectedSquad') or squads[0]
-    Settings.findOne({ squad: selectedSquad })
+    Settings.findOne({ squad: Session.get('selectedSquad') })
 
 Template.settings.events 'click .btn': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
