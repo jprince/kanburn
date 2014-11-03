@@ -10,9 +10,10 @@ coffeescript
 fourseven:scss
 d3
 iron:router
-bootstrap
 aldeed:autoform
 aldeed:collection2
 mrt:moment
 chrismbeckett:fontawesome4
 pfafman:nvd3
+mizzao:bootstrap-3
+

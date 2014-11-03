@@ -90,6 +90,11 @@ getTicketsWithoutEstimates = ->
     points: ''
   ).fetch()
 
+#Header
+Template.header.helpers
+  onHomepage: ->
+    Router.current().route.name is 'home'
+
 # Home
 Template.home.helpers
   completionDate: ->
@@ -128,7 +133,7 @@ Template.home.helpers
 Template.home.rendered = ->
   drawDonutChart(getBugsGroupedByPriority())
 
-Template.home.events 'click .btn': (event) ->
+Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
 
 # Admin - Release
@@ -141,7 +146,7 @@ Template.settings.helpers
   editingDoc: ->
     Settings.findOne({ squad: Session.get('selectedSquad') })
 
-Template.settings.events 'click .btn': (event) ->
+Template.settings.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
 
 # Watch Dependencies

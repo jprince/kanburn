@@ -1,49 +1,49 @@
 <template name="home">
-  <div>
-    <a href="/admin">Admin</a>
-  </div>
-  <div class="btn-group" data-toggle="buttons-radio">
-    <button type="radio" class="btn active" name="squad" value="Front End" checked="checked">Front End</button>
-    <button type="radio" class="btn" name="squad" value="Platform">Platform</button>
-  </div>
+  {{> squadToggle }}
 
-  <div>
-    <p>Days Remaining - {{ daysRemaining }}</p>
-    <p>
-      Est. Completion Date - {{ completionDate }}
-      {{ #if onSchedule }}
-        <i class="icon fa fa-check-circle"></i>
-      {{ else }}
-        <i class=" icon fa fa-exclamation-triangle"></i>
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Days Remaining - {{ daysRemaining }}</h3>
+      <h3>
+        Est. Completion Date - {{ completionDate }}
+        {{ #if onSchedule }}
+          <i class="icon fa fa-check-circle"></i>
+        {{ else }}
+          <i class=" icon fa fa-exclamation-triangle"></i>
+        {{ /if }}
+      </h3>
+    </div>
+
+    <div class="col-md-9">
+      {{ #if thereAreBugs }}
+        <div id="bug-chart" class="col-md-6">
+          <h3>Open Defects, by Priority</h3>
+          <svg></svg>
+        </div>
       {{ /if }}
-    </p>
+    </div>
   </div>
 
-  {{ #if thereAreBugs }}
-    <div id="bug-chart">
-      <h3>Open Defects, by Priority</h3>
-      <svg></svg>
-    </div>
-  {{ /if }}
+  <div class="row">
+    {{ #if thereAreCriticalBugs }}
+      <div class="col-md-6">
+        <h3>Critical Defects</h3>
+        {{> ticketList tickets=criticalBugs}}
+      </div>
+    {{ /if }}
 
-  {{ #if thereAreCriticalBugs }}
-    <div>
-      <h3>Critical Defects</h3>
-      {{> ticketList tickets=criticalBugs}}
-    </div>
-  {{ /if }}
+    {{ #if thereAreTicketsWithoutEstimates }}
+      <div class="col-md-6">
+        <h3>Tickets Without Estimates</h3>
+        {{> ticketList tickets=withoutEstimate}}
+      </div>
+    {{ /if }}
 
-  {{ #if thereAreTicketsWithoutEstimates }}
-    <div>
-      <h3>Tickets Without Estimates</h3>
-      {{> ticketList tickets=withoutEstimate}}
-    </div>
-  {{ /if }}
-
-  {{ #if thereAreTicketsWithoutComponents }}
-    <div>
-      <h3>Tickets Without Components</h3>
-      {{> ticketList tickets=withoutComponent}}
-    </div>
-  {{ /if }}
+    {{ #if thereAreTicketsWithoutComponents }}
+      <div class="col-md-6">
+        <h3>Tickets Without Components</h3>
+        {{> ticketList tickets=withoutComponent}}
+      </div>
+    {{ /if }}
+  </div>
 </template>
