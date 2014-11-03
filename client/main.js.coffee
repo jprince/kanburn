@@ -10,6 +10,33 @@ calculateDaysRemaining = (openTickets, settings) ->
     _(openTickets).where({points: 4}).length * settings.fourStoryPointEstimate +
     _(openTickets).where({points: 5}).length * settings.fiveStoryPointEstimate
 
+drawDonutChart = (data) ->
+  nv.addGraph ->
+    chart = nv.models.pieChart()
+      .x((d) -> d.label)
+      .y((d) -> d.value)
+      .showLabels(true)
+      .labelThreshold(.05)
+      .labelType("percent")
+      .donut(true)
+      .donutRatio(0.35)
+
+      d3.select("#bug-chart svg")
+        .datum(data)
+        .transition()
+        .duration(350)
+        .call chart
+    chart
+
+getBugsGroupedByPriority = (squad) ->
+  bugs = Tickets.find(
+    component: squad
+    type: 'Bug'
+  ).fetch()
+
+  groupedData = _(bugs).groupBy('priority')
+  aggregatedData = _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
+
 getEstimatedCompletionDate = (squad, settings) ->
   unless settings is undefined
     daysRemaining = calculateDaysRemaining(openTicketsForSquad(squad), settings)
@@ -47,9 +74,6 @@ openTicketsForSquad = (squad) ->
 
 # Home
 Template.home.helpers
-  allTickets: ->
-    Tickets.find(component: Session.get('selectedSquad'))
-
   completionDate: ->
     selectedSquad = Session.get('selectedSquad')
     settings = getSettingsForSquad(selectedSquad)
@@ -83,6 +107,10 @@ Template.home.helpers
       points: ''
     )
 
+Template.home.rendered = ->
+  aggregatedData = getBugsGroupedByPriority(Session.get('selectedSquad'))
+  drawDonutChart(aggregatedData)
+
 Template.home.events 'click .btn': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
 
@@ -99,3 +127,9 @@ Template.settings.helpers
 
 Template.settings.events 'click .btn': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
+
+# Watch Dependencies
+Tracker.autorun ->
+  selectedSquad = Session.get('selectedSquad')
+  updatedAggregateBugData = getBugsGroupedByPriority(selectedSquad)
+  drawDonutChart(updatedAggregateBugData)

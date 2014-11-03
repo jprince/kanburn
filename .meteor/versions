@@ -48,6 +48,7 @@ mongo@1.0.8
 mrt:moment@2.6.0
 observe-sequence@1.0.3
 ordered-dict@1.0.1
+pfafman:nvd3@0.1.0
 random@1.0.1
 reactive-dict@1.0.4
 reactive-var@1.0.3

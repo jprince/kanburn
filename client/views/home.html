@@ -19,26 +19,20 @@
     </p>
   </div>
 
-  <div>
-    <h3>All Tickets</h3>
-    {{> ticketList tickets=allTickets}}
+  <div id="bug-chart">
+    <h3>Open Defects, by Priority</h3>
+    <svg></svg>
   </div>
-
-  <hr>
 
   <div>
     <h3>Critical Defects</h3>
     {{> ticketList tickets=criticalBugs}}
   </div>
 
-  <hr>
-
   <div>
     <h3>Tickets Without Estimates</h3>
     {{> ticketList tickets=withoutEstimate}}
   </div>
-
-  <hr>
 
   <div>
     <h3>Tickets Without Components</h3>
