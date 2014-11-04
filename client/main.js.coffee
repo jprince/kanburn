@@ -11,20 +11,26 @@ calculateDaysRemaining = (openTickets, settings) ->
     _(openTickets).where({points: 5}).length * settings.fiveStoryPointEstimate
 
 drawDonutChart = (data) ->
+  size = 300
+
   nv.addGraph ->
     chart = nv.models.pieChart()
       .x((d) -> d.label)
       .y((d) -> d.value)
-      .showLabels(true)
-      .labelThreshold(.05)
-      .labelType("percent")
+      .showLabels(false)
       .donut(true)
-      .donutRatio(0.35)
+      .donutRatio(0.55)
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
+      .height(size)
+      .width(size)
 
       d3.select("#bug-chart svg")
         .datum(data)
         .transition()
         .duration(350)
+        .style
+          'height': size
+          'width': size
         .call chart
     chart
 

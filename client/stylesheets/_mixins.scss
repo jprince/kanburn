@@ -1,0 +1,10 @@
+@mixin base-font {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  @include fontsize(14);
+  line-height: 1.8;
+}
+
+@mixin fontsize($size) {
+  font-size: $size * 1px;
+  font-size: $size * 0.1rem;
+}
