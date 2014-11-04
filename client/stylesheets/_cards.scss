@@ -1,0 +1,18 @@
+.card {
+  background-color: #fff;
+  box-shadow: 1px 1px 5px 1px #a9b3b5;
+  margin: 20px 0;
+
+  .card-content {
+    padding: 10px;
+  }
+
+  .card-header {
+    background-color: #31849a;
+    color: white;
+    font-weight: 700;
+    min-height: 16px;
+    padding: 1em;
+    text-transform: uppercase;
+  }
+}
