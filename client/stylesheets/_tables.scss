@@ -1,0 +1,6 @@
+table {
+  th {
+    @include title-font;
+    @include fontsize(12);
+  }
+}

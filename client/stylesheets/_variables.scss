@@ -1,0 +1,30 @@
+$default-font: 'Source Sans Pro', Arial, sans-serif;
+$title-font: 'Maven Pro', Arial, sans-serif;
+
+// Green
+$green: rgb(123, 193, 67);
+$lightest-green: lighten($green, 40%);
+$lighter-green: lighten($green, 25%);
+$light-green: lighten($green, 10%);
+$dark-green: darken($green, 10%);
+$darker-green: darken($green, 20%);
+$darkest-green: darken($green, 30%);
+
+// Orange
+$orange: rgb(249, 158, 75);
+$lightest-orange: lighten($orange, 30%);
+$lighter-orange: lighten($orange, 20%);
+$light-orange: lighten($orange, 10%);
+$dark-orange: darken($orange, 10%);
+$darker-orange: darken($orange, 20%);
+$darkest-orange: darken($orange, 30%);
+
+// Teal
+$teal: #31849a;
+$lightest-teal: lighten($teal, 57%);
+$lighter-teal: lighten($teal, 40%);
+$light-teal: lighten($teal, 20%);
+$dark-teal: darken($teal, 5%);
+$darker-teal: darken($teal, 10%);
+$darkest-teal: darken($teal, 15%);
+$darkest-teal-hover: darken($teal, 20%);

@@ -1,12 +1,29 @@
 @import 'variables';
+@import 'mixins';
 @import 'cards';
 @import 'charts';
 @import 'icons';
 @import 'layout';
-@import 'mixins';
-
-
+@import 'tables';
 
 body {
   @include base-font;
+
+  footer {
+    background-color: $darkest-teal;
+  }
+
+  header {
+    background-color: $darkest-teal;
+
+    h1 {
+      color: $dark-orange;
+      float: left;
+    }
+  }
+}
+
+.filter-bar {
+  background-color: $darkest-teal-hover;
+  padding: 10px;
 }

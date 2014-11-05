@@ -6,15 +6,13 @@
 </body>
 
 <template name="layout">
-  <div class="container-fluid">
-    <header>
-      {{> yield region='header'}}
-    </header>
+  <header>
+    {{> yield region='header'}}
+  </header>
 
-    {{> yield}}
+  {{> yield}}
 
-    <footer>
-      {{> yield region='footer'}}
-    </footer>
-  </div>
+  <footer>
+    {{> yield region='footer'}}
+  </footer>
 </template>

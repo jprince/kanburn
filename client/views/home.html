@@ -1,80 +1,82 @@
 <template name="home">
   {{> squadToggle }}
 
-  <div class="row">
-    <div class="col-md-3">
-      <div class="card">
-        <div class="card-header">
-          Work Remaining
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            Work Remaining
+          </div>
+          <div class="card-content">
+            <p>Days Remaining - {{ daysRemaining }}</p>
+            <p>
+              Est. Completion Date - {{ completionDate }}
+              {{ #if onSchedule }}
+                <i class="icon fa fa-check-circle"></i>
+              {{ else }}
+                <i class=" icon fa fa-exclamation-triangle"></i>
+              {{ /if }}
+            </p>
+          </div>
         </div>
-        <div class="card-content">
-          <p>Days Remaining - {{ daysRemaining }}</p>
-          <p>
-            Est. Completion Date - {{ completionDate }}
-            {{ #if onSchedule }}
-              <i class="icon fa fa-check-circle"></i>
-            {{ else }}
-              <i class=" icon fa fa-exclamation-triangle"></i>
-            {{ /if }}
-          </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          {{ #if thereAreBugs }}
+            <div id="bug-chart">
+              <div class="card-header">
+                Open Defects, by Priority
+              </div>
+              <div class="card-content">
+                <svg></svg>
+              </div>
+            </div>
+          {{ /if }}
         </div>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card">
-        {{ #if thereAreBugs }}
-          <div id="bug-chart">
+    <div class="row">
+      {{ #if thereAreCriticalBugs }}
+        <div class="col-md-12">
+          <div class="card">
             <div class="card-header">
-              Open Defects, by Priority
+              Critical Defects
             </div>
             <div class="card-content">
-              <svg></svg>
+              {{> ticketList tickets=criticalBugs}}
             </div>
           </div>
-        {{ /if }}
-      </div>
+        </div>
+      {{ /if }}
+
+      {{ #if thereAreTicketsWithoutEstimates }}
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              Tickets Without Estimates
+            </div>
+            <div class="card-content">
+              {{> ticketList tickets=withoutEstimate}}
+            </div>
+          </div>
+        </div>
+      {{ /if }}
+
+      {{ #if thereAreTicketsWithoutComponents }}
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              Tickets Without Components
+            </div>
+            <div class="card-content">
+              {{> ticketList tickets=withoutComponent}}
+            </div>
+          </div>
+        </div>
+      {{ /if }}
     </div>
-  </div>
-
-  <div class="row">
-    {{ #if thereAreCriticalBugs }}
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Critical Defects
-          </div>
-          <div class="card-content">
-            {{> ticketList tickets=criticalBugs}}
-          </div>
-        </div>
-      </div>
-    {{ /if }}
-
-    {{ #if thereAreTicketsWithoutEstimates }}
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Tickets Without Estimates
-          </div>
-          <div class="card-content">
-            {{> ticketList tickets=withoutEstimate}}
-          </div>
-        </div>
-      </div>
-    {{ /if }}
-
-    {{ #if thereAreTicketsWithoutComponents }}
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Tickets Without Components
-          </div>
-          <div class="card-content">
-            {{> ticketList tickets=withoutComponent}}
-          </div>
-        </div>
-      </div>
-    {{ /if }}
   </div>
 </template>

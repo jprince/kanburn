@@ -4,12 +4,12 @@
 }
 
 .nvtooltip {
-    border: 1px solid #9d9f9f;
+    border: 1px solid $teal;
     font-family: $default_font;
     padding: 0;
 
   h3 {
-    background-color: #1b4854;
+    background-color: $darkest-teal;
     border-radius: 0px !important;
     color: #fff;
     font-weight: 600;

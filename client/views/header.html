@@ -1,12 +1,14 @@
 <template name="header">
-  <h1>
-    Kanburn
-  </h1>
-  <div class="text-right">
-    {{ #if onHomepage }}
-      <a href="/admin">Admin</a>
-    {{ else }}
-      <a href="/">Home</a>
-    {{ /if }}
+  <div class="container">
+    <h1>
+      Kanburn
+    </h1>
+    <div class="text-right">
+      {{ #if onHomepage }}
+        <a href="/admin">Admin</a>
+      {{ else }}
+        <a href="/">Home</a>
+      {{ /if }}
+    </div>
   </div>
 </template>

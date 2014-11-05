@@ -1,5 +1,10 @@
-.container-fluid {
-  background-color: #e5e8e9;
+.container {
   margin: 0 auto;
-  padding: 20px;
+  width: 1000px;
+}
+
+.container-fluid {
+  background-color: $lightest-teal;
+  margin: 0 auto;
+  width: 1000px;
 }
