@@ -46,7 +46,7 @@
               Critical Defects
             </div>
             <div class="card-content">
-              {{> ticketList tickets=criticalBugs}}
+              {{> ticketList tickets=criticalBugs excludePoints=true}}
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
               Tickets Without Estimates
             </div>
             <div class="card-content">
-              {{> ticketList tickets=withoutEstimate}}
+              {{> ticketList tickets=withoutEstimate excludePoints=true}}
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
               Tickets Without Components
             </div>
             <div class="card-content">
-              {{> ticketList tickets=withoutComponent}}
+              {{> ticketList tickets=withoutComponent }}
             </div>
           </div>
         </div>

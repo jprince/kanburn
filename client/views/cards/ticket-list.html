@@ -1,26 +1,29 @@
 <template name="ticketList">
   <table class="table table-striped table-condensed">
+    <p>{{ ticketList }}</p>
     <thead>
       <tr>
-        <th>Component</th>
         <th>ID</th>
         <th>Type</th>
         <th>Title</th>
         <th>Priority</th>
         <th>Status</th>
-        <th>Story Points</th>
+        {{ #unless excludePoints }}
+          <th>Story Points</th>
+        {{ /unless }}
       </tr>
     </thead>
     <tbody>
       {{ #each tickets }}
       <tr>
-        <td>{{ component }}</td>
         <td>{{ id }}</td>
         <td>{{ type }}</td>
         <td>{{ title }}</td>
         <td>{{ priority }}</td>
         <td>{{ status }}</td>
-        <td>{{ points }}</td>
+        {{ #unless excludePoints }}
+          <td>{{ points }}</td>
+        {{ /unless }}
       </tr>
       {{ /each }}
     </tbody>

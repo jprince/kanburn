@@ -36,8 +36,8 @@ drawDonutChart = (data) ->
 
 getAllBugs = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
-    type: 'Bug'
+    { component: Session.get('selectedSquad'), type: 'Bug' },
+    { fields: { 'points': 0 } }
   ).fetch()
 
 getBugsGroupedByPriority = ->
@@ -46,9 +46,8 @@ getBugsGroupedByPriority = ->
 
 getCriticalBugs = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
-    priority: 'Critical'
-    type: 'Bug'
+    { component: Session.get('selectedSquad'), priority: 'Critical', type: 'Bug'},
+    { fields: { 'points': 0 } }
   ).fetch()
 
 getEstimatedCompletionDate = ->
@@ -88,12 +87,15 @@ getSettings = ->
   ).fetch()[0]
 
 getTicketsWithoutComponents = ->
-  Tickets.find(component: '').fetch()
+  Tickets.find(
+    { component: '' },
+    { fields: { 'component': 0 } }
+  ).fetch()
 
 getTicketsWithoutEstimates = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
-    points: ''
+    { component: Session.get('selectedSquad'), points: '' },
+    { fields: { 'points': 0 } }
   ).fetch()
 
 #Header
