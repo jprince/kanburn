@@ -1,4 +1,25 @@
 <template name="admin">
-  <a href="/admin/release">Current Release</a>
-  <a href="/admin/settings">Squad Settings</a>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        Settings
+      </div>
+      <div id="admin-index" class="card-content">
+        <ul>
+          <li>
+            <a href="/admin/release">
+              <i class="fa fa-calendar-o"></i>
+              Current Release
+            </a>
+          </li>
+          <li>
+            <a href="/admin/settings">
+              <i class="fa fa-users"></i>
+              Squad
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>

@@ -9,7 +9,7 @@
 
   .card-header {
     @include title-font;
-    background-color: #31849a;
+    background-color: $teal;
     color: white;
     min-height: 16px;
     padding: 1em;
