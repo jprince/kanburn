@@ -1,4 +1,6 @@
 <template name="settings">
   {{> squadToggle }}
-  {{> quickForm collection="Settings" doc=editingDoc id="updateSettingsForm" type="update"}}
+  <div class="container-fluid">
+    {{> quickForm collection="Settings" doc=editingDoc id="updateSettingsForm" type="update"}}
+  </div>
 </template>

@@ -6,9 +6,12 @@
 @import 'layout';
 @import 'tables';
 @import 'admin';
+@import 'forms';
+@import 'buttons';
 
 body {
   @include base-font;
+  background-color: $lightest-teal;
 
   footer {
     background-color: $darkest-teal;
