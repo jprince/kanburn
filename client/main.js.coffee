@@ -4,11 +4,13 @@ Session.setDefault 'selectedSquad', squads[0]
 
 calculateDaysRemaining = (openTickets, settings) ->
   unless settings is undefined
-    _(openTickets).where({points: 1}).length * settings.oneStoryPointEstimate +
-    _(openTickets).where({points: 2}).length * settings.twoStoryPointEstimate +
-    _(openTickets).where({points: 3}).length * settings.threeStoryPointEstimate +
-    _(openTickets).where({points: 4}).length * settings.fourStoryPointEstimate +
-    _(openTickets).where({points: 5}).length * settings.fiveStoryPointEstimate
+    _(openTickets).where({points: 1}).length * (settings.oneStoryPointEstimate or 1) +
+    _(openTickets).where({points: 2}).length * (settings.twoStoryPointEstimate or 2) +
+    _(openTickets).where({points: 3}).length * (settings.threeStoryPointEstimate or 3) +
+    _(openTickets).where({points: 4}).length * (settings.fourStoryPointEstimate or 4) +
+    _(openTickets).where({points: 5}).length * (settings.fiveStoryPointEstimate or 5) +
+    _(openTickets).where({points: 8}).length * (settings.fiveStoryPointEstimate or 8) +
+    _(openTickets).where({points: 13}).length * (settings.fiveStoryPointEstimate or 13)
 
 drawDonutChart = (data) ->
   size = 300

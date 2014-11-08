@@ -20,24 +20,29 @@ Settings.attachSchema(new SimpleSchema(
     label: "1 story point estimate (days)"
     min: 0
     decimal: true
+    optional: true
   twoStoryPointEstimate:
     type: Number
     label: "2 story point estimate (days)"
     min: 0
     decimal: true
+    optional: true
   threeStoryPointEstimate:
     type: Number
     label: "3 story point estimate (days)"
     min: 0
     decimal: true
+    optional: true
   fourStoryPointEstimate:
     type: Number
     label: "4 story point estimate (days)"
     min: 0
     decimal: true
+    optional: true
   fiveStoryPointEstimate:
     type: Number
     label: "5 story point estimate (days)"
     min: 0
     decimal: true
+    optional: true
 ))
