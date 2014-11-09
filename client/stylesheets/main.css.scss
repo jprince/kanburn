@@ -9,6 +9,7 @@
 @import 'admin';
 @import 'forms';
 @import 'buttons';
+@import 'header';
 
 body {
   @include base-font;
@@ -17,19 +18,4 @@ body {
   footer {
     background-color: $darkest-teal;
   }
-
-  header {
-    background-color: $darkest-teal;
-
-    h1 {
-      color: $dark-orange;
-      float: left;
-      font-size: 3.5em;
-    }
-  }
-}
-
-.filter-bar {
-  background-color: $darkest-teal-hover;
-  padding: 10px;
 }

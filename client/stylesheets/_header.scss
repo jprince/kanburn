@@ -1,0 +1,26 @@
+header {
+  background-color: $darkest-teal;
+
+  h1 {
+    color: $dark-orange;
+    float: left;
+    font-size: 3.5em;
+  }
+
+  #navigation {
+    a {
+      color: $dark-orange;
+      text-decoration: none;
+
+      &:hover {
+        color: $orange;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+#filter-bar {
+  background-color: $darkest-teal-hover;
+  padding: 10px;
+}
