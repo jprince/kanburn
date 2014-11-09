@@ -1,0 +1,30 @@
+#work-remaining {
+  position: relative;
+  text-align: center;
+
+  #work-summary {
+    font-size: 1.3em;
+    margin: 0 30.5%;
+    padding: 0;
+    position: absolute;
+    top: 51%;
+    width: 32%;
+
+    #status-icon {
+      opacity: 0.18;
+
+      #behind-schedule {
+        font-size: 12rem;
+        left: -10%;
+        position: absolute;
+      }
+
+      #on-schedule {
+        font-size: 13rem;
+        left: -6%;
+        top: 2%;
+        position: absolute;
+      }
+    }
+  }
+}

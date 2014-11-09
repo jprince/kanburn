@@ -2,31 +2,50 @@
 squads = ['Front End', 'Platform']
 Session.setDefault 'selectedSquad', squads[0]
 
-calculateDaysRemaining = (openTickets, settings) ->
+calculateDays = (openTickets) ->
+  settings = getSettings()
+
   unless settings is undefined
-    _(openTickets).where({points: 1}).length * (settings.oneStoryPointEstimate or 1) +
-    _(openTickets).where({points: 2}).length * (settings.twoStoryPointEstimate or 2) +
-    _(openTickets).where({points: 3}).length * (settings.threeStoryPointEstimate or 3) +
-    _(openTickets).where({points: 4}).length * (settings.fourStoryPointEstimate or 4) +
-    _(openTickets).where({points: 5}).length * (settings.fiveStoryPointEstimate or 5) +
-    _(openTickets).where({points: 8}).length * (settings.fiveStoryPointEstimate or 8) +
-    _(openTickets).where({points: 13}).length * (settings.fiveStoryPointEstimate or 13)
+    pointOptions = [1..13]
 
-drawDonutChart = (data) ->
-  size = 300
+    daysByPoints =
+      for point in pointOptions
+        _(openTickets).where({points: point}).length * convertPointsToDays(point)
 
+    daysByPoints.reduce(((daysSoFar, option) ->
+      daysSoFar + option), 0)
+
+chartColors = ->
+  ['#74C449', '#12baae', '#127bb7', '#7c12b5', '#b2115c', '#af5011', '#aaad11']
+
+convertPointsToDays = (points) ->
+  if Session.get('selectedSquad') is 'Front End'
+    settings = getSettings()
+
+    switch points
+      when 1 then settings.oneStoryPointEstimate
+      when 2 then settings.twoStoryPointEstimate
+      when 3 then settings.threeStoryPointEstimate
+      when 4 then settings.fourStoryPointEstimate
+      when 5 then settings.fiveStoryPointEstimate
+      else 0
+  else points
+
+drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
     chart = nv.models.pieChart()
+      .color(chartColors())
+      .donut(true)
+      .donutRatio(ratio)
+      .height(size)
+      .showLabels(false)
+      .showLegend(showLegend)
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
+      .width(size)
       .x((d) -> d.label)
       .y((d) -> d.value)
-      .showLabels(false)
-      .donut(true)
-      .donutRatio(0.55)
-      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
-      .height(size)
-      .width(size)
 
-      d3.select("#bug-chart svg")
+      d3.select("##{domId} svg")
         .datum(data)
         .transition()
         .duration(350)
@@ -42,9 +61,21 @@ getAllBugs = ->
     { fields: { 'points': 0 } }
   ).fetch()
 
+getAllTickets = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+  ).fetch()
+
 getBugsGroupedByPriority = ->
   groupedData = _(getAllBugs()).groupBy('priority')
   aggregatedData = _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
+
+getClosedTickets = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+    points: $gt: 0
+    status: $in: ['Closed', 'Deployed']
+  ).fetch()
 
 getCriticalBugs = ->
   Tickets.find(
@@ -55,7 +86,7 @@ getCriticalBugs = ->
 getEstimatedCompletionDate = ->
   settings = getSettings()
   unless settings is undefined
-    daysRemaining = calculateDaysRemaining(getOpenTickets(), settings)
+    daysRemaining = calculateDays(getOpenTickets(), settings)
     calendarDaysRemaining =
       Math.ceil((daysRemaining * (1 + settings.riskMultiplier))/settings.velocity)
 
@@ -79,6 +110,15 @@ getOpenTickets = ->
     points: $gt: 0
     status: $nin: ['Closed', 'Deployed']
   ).fetch()
+
+getPointsGroupedByStatus = ->
+  groupedData = _(getAllTickets()).groupBy('status')
+  aggregatedData = _(groupedData).map((value, key) ->
+    label: key
+    value: value.reduce(((daysSoFar, ticket) ->
+      daysSoFar + (convertPointsToDays(ticket.points) or 0)), 0)
+  )
+  aggregatedData
 
 getRelease = ->
   Release.findOne() or {}
@@ -113,8 +153,11 @@ Template.home.helpers
   criticalBugs: ->
     getCriticalBugs()
 
+  daysCompleted: ->
+    calculateDays(getClosedTickets())
+
   daysRemaining: ->
-    calculateDaysRemaining(getOpenTickets(), getSettings())
+    calculateDays(getOpenTickets())
 
   onSchedule: ->
     estimatedCompletionDate = getEstimatedCompletionDate()
@@ -141,7 +184,8 @@ Template.home.helpers
     getTicketsWithoutEstimates()
 
 Template.home.rendered = ->
-  drawDonutChart(getBugsGroupedByPriority())
+  drawDonutChart(getBugsGroupedByPriority(), 'bug-chart', 0.55, 283, true)
+  drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
@@ -161,4 +205,5 @@ Template.settings.events 'change input[type=radio]': (event) ->
 
 # Watch Dependencies
 Tracker.autorun ->
-  drawDonutChart(getBugsGroupedByPriority())
+  drawDonutChart(getBugsGroupedByPriority(), 'bug-chart', 0.55, 283, true)
+  drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
