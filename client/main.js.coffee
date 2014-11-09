@@ -66,8 +66,8 @@ getAllTickets = ->
     component: Session.get('selectedSquad')
   ).fetch()
 
-getBugsGroupedByPriority = ->
-  groupedData = _(getAllBugs()).groupBy('priority')
+getBugsGroupedBy = (grouping) ->
+  groupedData = _(getAllBugs()).groupBy(grouping)
   aggregatedData = _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
 
 getClosedTickets = ->
@@ -184,7 +184,8 @@ Template.home.helpers
     getTicketsWithoutEstimates()
 
 Template.home.rendered = ->
-  drawDonutChart(getBugsGroupedByPriority(), 'bug-chart', 0.55, 283, true)
+  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.55, 283, true)
+  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.55, 283, true)
   drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
 
 Template.home.events 'change input[type=radio]': (event) ->
@@ -205,5 +206,6 @@ Template.settings.events 'change input[type=radio]': (event) ->
 
 # Watch Dependencies
 Tracker.autorun ->
-  drawDonutChart(getBugsGroupedByPriority(), 'bug-chart', 0.55, 283, true)
+  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.55, 283, true)
+  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.55, 283, true)
   drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)

@@ -41,9 +41,24 @@
       <div class="col-md-4">
         <div class="card">
           {{ #if thereAreBugs }}
-            <div id="bug-chart">
+            <div id="bugs-by-priority">
               <div class="card-header">
                 Open Defects, by Priority
+              </div>
+              <div class="card-content">
+                <svg></svg>
+              </div>
+            </div>
+          {{ /if }}
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          {{ #if thereAreBugs }}
+            <div id="bugs-by-status">
+              <div class="card-header">
+                Open Defects, by Status
               </div>
               <div class="card-content">
                 <svg></svg>
