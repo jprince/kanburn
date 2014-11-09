@@ -10,12 +10,13 @@
 @import 'forms';
 @import 'buttons';
 @import 'header';
+@import 'footer';
 
-body {
-  @include base-font;
-  background-color: $lightest-teal;
+html {
+  background-color: $darkest-teal;
 
-  footer {
-    background-color: $darkest-teal;
+  body {
+    @include base-font;
+    background-color: $lightest-teal;
   }
 }
