@@ -3,24 +3,16 @@ Platform,QDWFOUROH-2722,New Feature,HOLD - Cost Variability,Major,Closed,3
 Platform,QDWFOUROH-2721,New Feature,HOLD - Person Month Cost Table,Major,Closed,1
 Front End,QDWFOUROH-2408,Task,Reconcile api/readme.md and sample files with back end sprocs,Major,Closed,2
 Front End,QDWFOUROH-2355,Task,Add column types on server to eliminate column type matching on client,Major,Closed,0
-Platform,QDWFOUROH-2333,Task,HOLD - Configure inhouse Jenkins Master,Major,Open,3
 Front End,QDWFOUROH-2763,New Feature,Remove 'Rendering' option from prov attr. filter on MEM Dash + Detail report,Major,Open,2
 Platform,QDWFOUROH-2712,New Feature,Update All Reporting to use new xml for filters,Major,Closed,3
 Platform,QDWFOUROH-2711,New Feature,Update Filter CLR to use xml instead of individual parameters,Major,Closed,1
-Front End,QDWFOUROH-2724,New Feature,Overlay date range slider on primary timeline on MEM Dash,Major,Open,5
-Platform,QDWFOUROH-2717,New Feature,In Network Provider,Major,Closed,2
 Platform,QDWFOUROH-2719,New Feature,POS/Facility Hierarchy,Major,Closed,3
 Platform,QDWFOUROH-2739,New Feature,Load DRG Codes,Major,Closed,2
-Front End,QDWFOUROH-2762,New Feature,HOLD - Add new PCP provider/facility filter,Major,Open,3
-Front End,QDWFOUROH-2743,Task,Move facility hierarchy into Angular,Major,Deployed,5
 Front End,QDWFOUROH-2639,Task,Move super-select into Angular,Major,Deployed,3
-Front End,QDWFOUROH-2637,New Feature,Create shell 'Medical Expense Management' dashboard page,Major,Deployed,1
 Front End,QDWFOUROH-2668,Task,Set column data type in Rails layer,Major,Closed,4
-Front End,QDWFOUROH-2785,New Feature,Add risk adjusted data filter,Major,Open,2
 Front End,QDWFOUROH-2758,New Feature,Add primary procedure filter,Major,Open,2
 Platform,QDWFOUROH-2797,New Feature,CM Centralized Fact Field Calculation,Major,Closed,3
 Platform,QDWFOUROH-2740,New Feature,Add UI ICD-9 Procedure,Major,Closed,1
-Front End,QDWFOUROH-2755,New Feature,Add in/out of network filter,Major,Review,2
 Front End,QDWFOUROH-2708,Task,Convert filter parameters to XML data structure,Major,Deployed,3
 Platform,QDWFOUROH-2773,New Feature,Create Cost Management Fact Table,Major,Closed,3
 Platform,QDWFOUROH-2718,New Feature,Add New Global Filters,Major,Closed,5
@@ -31,63 +23,70 @@ Platform,QDWFOUROH-2772,New Feature,List of Cost Management Grouping Options,Maj
 Front End,QDWFOUROH-2759,New Feature,Add POS/service facility filter,Major,Open,2
 Front End,QDWFOUROH-2671,Task,Remove column data type logic from client-side code,Major,In Progress,5
 Front End,QDWFOUROH-2554,New Feature,HOLD - Member Product filter can be hidden in some environments,Major,Open,3
-Front End,QDWFOUROH-2687,Improvement,HOLD Have selected providers / locations move to the top of the list,Major,Open,0
 Front End,QDWFOUROH-2803,New Feature,HOLD Add link to detail report,Major,Open,2
-Front End,QDWFOUROH-2757,New Feature,Add primary diagnosis filter,Major,In Progress,2
-Front End,QDWFOUROH-2723,New Feature,Add primary timeline to MEM Dash,Major,In Progress,4
-Front End,QDWFOUROH-2799,New Feature,HOLD Add geography analysis pane,Major,Open,5
-Front End,QDWFOUROH-2764,New Feature,Move filters into a pullout pane,Major,Deployed,4
-Front End,QDWFOUROH-2751,New Feature,Hide facility and provider filters on the MEM Dash + detail report,Major,Deployed,4
-Front End,QDWFOUROH-2893,New Feature,Add date filters into med expense dashboard,Major,Deployed,2
 Front End,QDWFOUROH-2948,New Feature,Determine data format for cost/variability analyzer,Major,Closed,2
 Platform,QDWFOUROH-2783,Epic,CM Group Analysis,Major,Open,13
 Platform,QDWFOUROH-2774,New Feature,Create Cost Management ETL Job,Major,Closed,5
-Platform,QDWFOUROH-2779,New Feature,HOLD - CM Geocoding Procedure,Major,Open,13
-Platform,QDWFOUROH-2776,New Feature,Change over Time Procedure,Major,Deployed,3
-Platform,QDWFOUROH-2968,New Feature,HOLD - CM Group Analyzer,Major,Open,5
-Front End,QDWFOUROH-2949,New Feature,Build cost/variability analyzer visualization,Major,In Progress,5
 Front End,QDWFOUROH-2840,Task,Update API endpoints and Rails code to match renamed Platform fields,Major,Deployed,2
-,QDWFOUROH-2889,Improvement,Add risk score and cost to all reports that don't currently have them,Major,Open,1
-Platform,QDWFOUROH-2966,New Feature,HOLD - Load Group Analysis Specialty Mapping,Major,Open,1
-Platform,QDWFOUROH-2970,New Feature,HOLD - Provider Leaderboard Hero,Major,Open,13
-Platform,QDWFOUROH-2782,New Feature,HOLD - CM Patient Analysis,Major,Open,13
-Front End,QDWFOUROH-2761,New Feature,Add PMPM slider filter,Major,Deployed,3
-Platform,QDWFOUROH-2849,New Feature,Add Functional Primary Location Global Filter,Major,Review,1
+Platform,QDWFOUROH-2731,New Feature,Inpatient Grouper,Major,Closed,5
+Front End,QDWFOUROH-2720,New Feature,Add primary summary and selection pane to MEM Dash,Major,Deployed,2
+Front End,QDWFOUROH-2950,New Feature,HOLD Implement fact toggle for cost/variability analyzer,Major,Open,3
+Platform,QDWFOUROH-2786,New Feature,Update Measure Parser to support code category of mult code sets,Major,Closed,13
+Platform,QDWFOUROH-2778,New Feature,CM Detail Report,Major,Closed,3
+Platform,QDWFOUROH-2775,New Feature,Cost Timeline Procedure,Major,Closed,3
+Platform,QDWFOUROH-2779,New Feature,HOLD - CM Geocoding Procedure,Major,Open,13
+Front End,QDWFOUROH-2960,New Feature,HOLD Pass user's attributed facilities to all MEM Dash/Detail procedures,Major,Open,3
+Front End,QDWFOUROH-2725,New Feature,Add change over time pane to MEM Dash,Major,Open,4
+Front End,QDWFOUROH-2785,New Feature,Add risk adjusted data filter,Major,Open,2
+Front End,QDWFOUROH-2753,New Feature,Add service provider filter,Major,Open,2
+Front End,QDWFOUROH-2752,New Feature,Add specialty filter,Major,Open,2
+Platform,QDWFOUROH-2995,New Feature,Return Total Persons/Member Months for Map View,Major,Open,2
+Front End,QDWFOUROH-2799,New Feature,HOLD Add geography analysis pane,Major,Open,5
+Front End,QDWFOUROH-2762,New Feature,HOLD - Add new PCP provider/facility filter,Major,Open,3
 Platform,QDWFOUROH-2816,New Feature,HCC Manual Setup Tables,Major,Deployed,2
-Platform,QDWFOUROH-2814,New Feature,Load ICD9 to HCC Mapping,Major,Deployed,1
 Platform,QDWFOUROH-2815,New Feature,Load SAS HCC Coeficients,Major,Deployed,1
 Platform,QDWFOUROH-2732,New Feature,HCC Risk Algorithm,Major,Deployed,4
-Front End,QDWFOUROH-2766,New Feature,Implement accordion-style design for filters,Major,Deployed,4
-Front End,QDWFOUROH-2765,New Feature,Add filter 'breadcrumbs',Major,In Progress,4
-Platform,QDWFOUROH-2778,New Feature,CM Detail Report,Major,Review,3
-Platform,QDWFOUROH-2769,New Feature,Primary Procedure Hierarchy,Major,Review,2
-Platform,QDWFOUROH-2781,New Feature,CM Centralized Filter Logic,Major,In Progress,3
-Platform,QDWFOUROH-2731,New Feature,Inpatient Grouper,Major,Closed,5
-Front End,QDWFOUROH-2936,New Feature,Polish filters,Major,Review,3
-Platform,QDWFOUROH-2768,New Feature,PCP Facility Hierarchy,Major,Closed,3
-Front End,QDWFOUROH-2725,New Feature,Add change over time pane to MEM Dash,Major,Open,4
-Front End,QDWFOUROH-2753,New Feature,HOLD Add service provider filter,Major,Open,2
-Front End,QDWFOUROH-2752,New Feature,HOLD Add specialty filter,Major,Open,2
-Front End,QDWFOUROH-2899,New Feature,Develop POC for Google Maps heatmap,Major,In Progress,3
-Front End,QDWFOUROH-2760,New Feature,Add risk score slider filter,Major,Review,3
-Platform,QDWFOUROH-2786,New Feature,Update Measure Parser to support code category of mult code sets,Major,Deployed,13
-Platform,QDWFOUROH-2775,New Feature,Cost Timeline Procedure,Major,Deployed,3
-Platform,QDWFOUROH-2683,Improvement,"Update Care Gap Report - Require pneumax for all diabetics, not just patient over age 65",Major,Open,1
-Platform,QDWFOUROH-2909,Task,Update claims data to be more recent,Major,In Progress,3
-Platform,QDWFOUROH-2872,Improvement,Add drug intolerance maintenance item to CAD ACE/ARB and CAD LDL Therapy,Major,Open,1
-Platform,QDWFOUROH-2987,Improvement,Add payer 2 column to pat registry,Major,Open,2
-Platform,QDWFOUROH-2928,Improvement,Add Next Appt Date to all reports (where it doesn't already exist),Major,Open,3
-Front End,QDWFOUROH-2802,New Feature,Add utilization detail pane,Major,In Progress,3
-Front End,QDWFOUROH-2720,New Feature,Add primary summary and selection pane to MEM Dash,Major,Deployed,2
-Front End,QDWFOUROH-2960,New Feature,HOLD Pass user's attributed facilities to all MEM Dash/Detail procedures,Major,Open,
-Front End,QDWFOUROH-2950,New Feature,HOLD Implement fact toggle for cost/variability analyzer,Major,Open,3
+Platform,QDWFOUROH-2814,New Feature,Load ICD9 to HCC Mapping,Major,Deployed,1
+Platform,QDWFOUROH-2776,New Feature,Change over Time Procedure,Major,Deployed,3
+Platform,QDWFOUROH-2889,Improvement,Add risk score and cost to all reports that don't currently have them,Major,Open,1
+Front End,QDWFOUROH-2936,New Feature,Polish filters,Major,Deployed,3
+Platform,QDWFOUROH-2994,New Feature,Security Check for Utilization PCP Selection,Major,Open,1
+Platform,QDWFOUROH-2769,New Feature,Primary Procedure Hierarchy,Major,Closed,2
+Platform,QDWFOUROH-2849,New Feature,Add Functional Primary Location Global Filter,Major,Closed,1
+Platform,QDWFOUROH-2996,New Feature,Add Lat/Long filter parameters to utilization detail report,Major,Open,2
+Front End,QDWFOUROH-2637,New Feature,Create shell 'Medical Expense Management' dashboard page,Major,Closed,1
+Front End,QDWFOUROH-2724,New Feature,Overlay date range slider on primary timeline on MEM Dash,Major,Open,5
+Platform,QDWFOUROH-2966,New Feature,HOLD - Load Group Analysis Specialty Mapping,Major,Open,1
+Front End,QDWFOUROH-3017,New Feature,User can save Util detail report with selected utilization filter values,Major,Open,0
+Platform,QDWFOUROH-2768,New Feature,PCP Facility Hierarchy,Major,In Progress,3
+Platform,QDWFOUROH-2717,New Feature,In Network Provider,Major,Closed,2
+Front End,QDWFOUROH-2687,New Feature,HOLD Have selected providers / locations move to the top of the list,Major,Open,0
+Front End,QDWFOUROH-2949,New Feature,Build cost/variability analyzer visualization,Major,In Progress,5
+Front End,QDWFOUROH-2751,New Feature,Hide facility and provider filters on the MEM Dash + detail report,Major,Closed,4
+Front End,QDWFOUROH-2893,New Feature,Add date filters into med expense dashboard,Major,Closed,2
+Front End,QDWFOUROH-2764,New Feature,Move filters into a pullout pane,Major,Closed,4
+Front End,QDWFOUROH-2766,New Feature,Implement accordion-style design for filters,Major,Closed,4
+Platform,QDWFOUROH-2965,New Feature,CM Specialty Mapping,Major,Closed,1
+Front End,QDWFOUROH-2760,New Feature,Add risk score slider filter,Major,Deployed,3
+Front End,QDWFOUROH-2761,New Feature,Add PMPM slider filter,Major,Deployed,3
 Front End,QDWFOUROH-2756,New Feature,Add DRG filter,Major,Deployed,2
-Platform,QDWFOUROH-2965,New Feature,CM Specialty Mapping,Major,In Progress,1
+Front End,QDWFOUROH-2755,New Feature,Add in/out of network filter,Major,Deployed,2
+Front End,QDWFOUROH-2743,Task,Move facility hierarchy into Angular,Major,Deployed,5
+Platform,QDWFOUROH-2872,Improvement,Add drug intolerance maintenance item to CAD ACE/ARB and CAD LDL Therapy,Major,Closed,1
+Platform,QDWFOUROH-2781,New Feature,CM Centralized Filter Logic,Major,Deployed,3
+Front End,QDWFOUROH-2802,New Feature,Add utilization detail pane,Major,Review,3
+Front End,QDWFOUROH-2757,New Feature,Add primary diagnosis filter,Major,In Progress,2
+Platform,QDWFOUROH-2987,Improvement,Add payer 2 column to pat registry,Major,In Progress,2
+Platform,QDWFOUROH-2909,Task,Update claims data to be more recent,Major,Review,3
+Front End,QDWFOUROH-2899,New Feature,Develop POC for Google Maps heatmap,Major,In Progress,3
+Front End,QDWFOUROH-2723,New Feature,Add primary timeline to MEM Dash,Major,Review,4
+Front End,QDWFOUROH-2765,New Feature,Add filter 'breadcrumbs',Major,Review,4
+Platform,QDWFOUROH-2993,New Feature,Utilization Cost Management Performance Tuning,Major,Open,3
+Platform,QDWFOUROH-3035,Improvement,CMR PCHS - Significant Events,Major,Open,
+Platform,QDWFOUROH-2928,Improvement,Add Next Appt Date to all reports (where it doesn't already exist),Major,Deployed,3
+Platform,QDWFOUROH-2968,New Feature,CM Group Analyzer,Major,In Progress,5
 Platform,QDWFOUROH-2825,New Feature,Update PCP Facility Filter to Only Include PCPs,Minor,Closed,1
 Front End,QDWFOUROH-2788,Task,Add specs for hierarchy,Minor,Closed,2
-Front End,QDWFOUROH-2800,New Feature,Add facility markers to geographic analysis pane,Minor,Open,3
-Platform,QDWFOUROH-2870,Improvement,"Rename A1C not poor control measure to ""DM A1c <=9""",Minor,Open,1
-Front End,QDWFOUROH-2733,New Feature,Rename 'Utilization Dashboard' to 'ED Utilization Dashboard',Minor,Deployed,1
 Front End,QDWFOUROH-2930,Task,Rename 'all-checkbox-wrapper' to 'checkbox-wrapper',Minor,Open,1
 Front End,QDWFOUROH-2934,Task,HOLD - Upgrade to Angular 1.3,Minor,Open,4
 Front End,QDWFOUROH-2958,Task,Fix intermittently failing initiative threshold spec,Minor,Open,2
@@ -95,31 +94,27 @@ Front End,QDWFOUROH-2959,Task,Fix intermittently failing favorite spec,Minor,Ope
 Front End,QDWFOUROH-2801,New Feature,User can expand a card for closer inspection,Minor,Open,4
 Front End,QDWFOUROH-2804,New Feature,HOLD Overlay visualizations on the detail report,Minor,Open,4
 Front End,QDWFOUROH-2654,Improvement,Click outside filter to remove dropdown,Minor,Closed,3
-Platform,QDWFOUROH-2967,New Feature,HOLD - Calculate Primary Diagnosis Code HCC Alignment,Minor,Open,3
 Front End,QDWFOUROH-2969,Task,Rename 'Filter' model to 'Attribution',Minor,Open,2
-Front End,QDWFOUROH-2898,New Feature,Remove old ED Dashboard,Minor,Deployed,2
 Front End,QDWFOUROH-2931,Task,Add a Jenkins build for 4.4,Minor,Closed,2
-,QDWFOUROH-2903,New Feature,HOLD - Slider 90th Percentile,Minor,Open,2
-Platform,QDWFOUROH-2851,New Feature,Add Payer Type Utilization Grouping,Minor,Open,2
-Platform,QDWFOUROH-2771,New Feature,HOLD - Procedure to get Location Markers,Minor,Open,1
 ,QDWFOUROH-2913,Improvement,Update PCP specialty code category,Minor,Closed,1
-Platform,QDWFOUROH-2867,New Feature,HOLD - Add HCCRx Algorithm,Minor,Open,5
-Front End,QDWFOUROH-2887,Improvement,Change style of global date filter,Minor,Open,
-Platform,QDWFOUROH-2904,New Feature,Risk Adjust Cost Management Reports,Minor,In Progress,2
-Front End,QDWFOUROH-2754,New Feature,Update options in service provider filter based on selected specialty,Minor,Open,2
-Front End,QDWFOUROH-2978,Task,Create parent filter service to centralize filter logic,Minor,Open,
-Platform,QDWFOUROH-2421,New Feature,Configure Highlighted Fields for Reports,Minor,Open,1
-Platform,QDWFOUROH-2220,Improvement,Patient Detail should not show Value columns that never will have a value,Minor,Reopened,1
-Platform,QDWFOUROH-2888,Improvement,Display all patient's payers on the single patient report,Minor,Open,1
-Platform,QDWFOUROH-2989,Improvement,Update payer scrub to support like,Minor,Open,1
-Platform,QDWFOUROH-2871,Improvement,Functional Demographics should de-prioritize Needs Update values,Minor,Reopened,3
-Platform,QDWFOUROH-2790,Improvement,Update description of NOT Poor Control to HTML,Minor,Open,1
-Platform,QDWFOUROH-2884,Improvement,Update column names,Minor,Open,2
-Front End,QDWFOUROH-2979,New Feature,Implement log scale function for slider filters,Minor,Open,3
-Front End,QDWFOUROH-2962,New Feature,HOLD Build patient density visualization,Minor,Open,0
-Front End,QDWFOUROH-2961,New Feature,Add card for patient density visualization,Minor,Open,0
 Front End,QDWFOUROH-2443,New Feature,Implementation teams can flag columns to be highlighted as important on tabular reports,Minor,Open,4
-Front End,QDWFOUROH-2923,Improvement,"Group providers by PCP, Specialist, Other, and alphabetize list",Minor,Open,
-Platform,QDWFOUROH-2988,Improvement,If No matching scrub for payer dynamically create new payer_name record,Minor,Open,3
-Front End,QDWFOUROH-1639,Improvement,change Items to Providers upon pulldown when all providers is checked,Trivial,Deployed,
-Platform,QDWFOUROH-2905,New Feature,Add Last Preventive Visit to CommonReportFields,"""Major""",Review,1
+Front End,QDWFOUROH-2962,New Feature,HOLD Build patient density visualization,Minor,Open,5
+Front End,QDWFOUROH-2961,New Feature,Add placeholder card for patient density visualization,Minor,Open,0
+Front End,QDWFOUROH-2978,Task,Create parent filter service to centralize filter logic,Minor,Open,3
+Platform,QDWFOUROH-2771,New Feature,HOLD - Procedure to get Location Markers,Minor,Open,1
+Front End,QDWFOUROH-3002,Task,Fix intermittently failing favorite report w/ aggregate spec,Minor,Open,2
+Front End,QDWFOUROH-2754,New Feature,HOLD Update options in service provider filter based on selected specialty,Minor,Open,2
+Front End,QDWFOUROH-2800,New Feature,HOLD Add facility markers to geographic analysis pane,Minor,Open,3
+Platform,QDWFOUROH-2903,New Feature,HOLD - Slider 90th Percentile,Minor,Closed,2
+Front End,QDWFOUROH-2887,Improvement,Change style of global date filter,Minor,In Progress,3
+Front End,QDWFOUROH-2898,New Feature,Remove old ED Dashboard,Minor,Closed,2
+Front End,QDWFOUROH-3020,New Feature,Add ability to make documentation for some tabular reports PDF format,Minor,Open,0
+Front End,QDWFOUROH-2733,New Feature,Rename 'Utilization Dashboard' to 'ED Utilization Dashboard',Minor,Closed,1
+Front End,QDWFOUROH-2923,New Feature,"Group providers by PCP, Specialist, Other, and alphabetize list",Minor,Open,
+Front End,QDWFOUROH-3022,New Feature,Add documentation to dashboards,Minor,Open,0
+Platform,QDWFOUROH-2851,New Feature,Add Payer Type Utilization Grouping,Minor,Closed,2
+Platform,QDWFOUROH-2871,Improvement,Functional Demographics should de-prioritize Needs Update values,Minor,Closed,3
+Platform,QDWFOUROH-2904,New Feature,Risk Adjust Cost Management Reports,Minor,Deployed,2
+Front End,QDWFOUROH-2979,New Feature,Implement log scale function for slider filters,Minor,In Progress,3
+Front End,QDWFOUROH-1639,Improvement,change Items to Providers upon pulldown when all providers is checked,Trivial,Closed,1
+Platform,QDWFOUROH-2905,New Feature,Add Last Preventive Visit to CommonReportFields,"""Major""",Closed,1

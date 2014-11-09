@@ -1,17 +1,29 @@
-Platform,QDWFOUROH-2920,Bug,@Fact is not used in Utilization Reports,Critical,Deployed
+Platform,QDWFOUROH-2920,Bug,@Fact is not used in Utilization Reports,Critical,Closed
 Front End,QDWFOUROH-2426,Bug,HOLD - User can hang web application with constant clicks/requests,Major,Open
 Front End,QDWFOUROH-1858,Bug,test is not responding due to a long-running script,Major,Deployed
 Platform,QDWFOUROH-2827,Bug,Update web Get Procedures to follow StrongCase form,Major,Closed
 Platform,QDWFOUROH-2890,Bug,Make PathSegment a varchar in GetLocationIDs,Major,Closed
+Platform,QDWFOUROH-2982,Bug,Cost management Arithmetic overflow error,Major,Closed
 Platform,QDWFOUROH-2908,Bug,Update uspReprocessProvider to ignore unassigned providers and prov_type cannot be resrubbed,Major,Closed
-Platform,QDWFOUROH-2957,Bug,"Delete ""Last ED Visit Date"" column from ED Freq Flyer report",Major,Open
-Front End,QDWFOUROH-2984,Bug,Toggling 'all' on Multi-select clears the selected options without clearing the checkboxes,Major,Review
-Platform,QDWFOUROH-2990,Bug,SPR does not list Funct PCP unless pt had visit or has upcoming appt,Major,Open
-Platform,QDWFOUROH-2982,Bug,Cost management Arithmetic overflow error,Major,Deployed
+Platform,QDWFOUROH-3012,Bug,Cost Management Monthly Grouping Not Applying Group Based filters correctly,Major,Review
+Platform,QDWFOUROH-3029,Bug,Monitoring Fail on Plan Data,Major,Review
+Platform,QDWFOUROH-2957,Bug,"Delete ""Last ED Visit Date"" column from ED Freq Flyer report",Major,Closed
+Front End,QDWFOUROH-2984,Bug,Toggling 'all' on Multi-select clears the selected options without clearing the checkboxes,Major,Deployed
+Platform,QDWFOUROH-3027,Bug,Measure Dependency Document in 4.5 not matching 4.4,Major,Review
+Platform,QDWFOUROH-3026,Bug,Fix utilization @primarydiag filter,Major,In Progress
 Front End,QDWFOUROH-2868,Bug,ng-grid columns sometimes overlap in IE,Minor,Open
-Front End,QDWFOUROH-2839,Bug,Users without accounts can request password resets,Minor,Deployed
-Front End,QDWFOUROH-2869,Bug,Login redirect doesn't work in IE,Minor,Deployed
-Front End,QDWFOUROH-2897,Bug,Favorites are converting all facilities to each individual facility,Minor,Deployed
 Platform,QDWFOUROH-2951,Bug,"ACO Flu Exceptions should be ""during the flu season""",Minor,Open
-Platform,QDWFOUROH-2983,Bug,Facts for Cost Management Timeline,Minor,In Progress
+Front End,QDWFOUROH-2999,Bug,Measure Points Don't Sort Properly,Minor,Open
+Platform,QDWFOUROH-3011,Bug,HOLD - Remove EncInPeriod flag from Cost Management procedures,Minor,Open
+Front End,QDWFOUROH-2839,Bug,Users without accounts can request password resets,Minor,Closed
+Front End,QDWFOUROH-2869,Bug,Login redirect doesn't work in IE,Minor,Closed
+Front End,QDWFOUROH-2897,Bug,Favorites are converting all facilities to each individual facility,Minor,Closed
+Front End,QDWFOUROH-3024,Bug,All filters are plural except facility/facilities,Minor,Deployed
+Front End,QDWFOUROH-3038,Bug,Hidden personid appears as Group by field on Aggregate function,Minor,Open
+Platform,QDWFOUROH-3028,Bug,Update Timestamp modified during initial load of new encounters,Minor,Review
+Platform,QDWFOUROH-3037,Bug,Blank Significant Event Types,Minor,Open
+Platform,QDWFOUROH-3021,Bug,Update payer_name_id to int,Minor,Deployed
+Platform,QDWFOUROH-3025,Bug,Missing ImmType code set,Minor,Deployed
+Platform,QDWFOUROH-2983,Bug,Facts for Cost Management Timeline,Minor,Deployed
 Front End,QDWFOUROH-2896,Bug,Aggregate report data runs the indicator class against the main grid data,Trivial,Open
+Front End,QDWFOUROH-3023,Bug,Favorites with multi-select filters do not display selected options on load,"""Major""",Deployed
