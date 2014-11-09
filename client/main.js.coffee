@@ -128,6 +128,12 @@ getSettings = ->
     squad: Session.get('selectedSquad')
   ).fetch()[0]
 
+getTicketsOnHold = ->
+  Tickets.find(
+    { component: Session.get('selectedSquad'), title: /\bhold/i },
+    { fields: { 'component': 0 } }
+  ).fetch()
+
 getTicketsWithoutComponents = ->
   Tickets.find(
     { component: '' },
@@ -159,6 +165,9 @@ Template.home.helpers
   daysRemaining: ->
     calculateDays(getOpenTickets())
 
+  onHold: ->
+    getTicketsOnHold()
+
   onSchedule: ->
     estimatedCompletionDate = getEstimatedCompletionDate()
     releaseDate = getRelease().releaseDate
@@ -170,6 +179,9 @@ Template.home.helpers
 
   thereAreCriticalBugs: ->
     not _(getCriticalBugs()).isEmpty()
+
+  thereAreTicketsOnHold: ->
+    not _(getTicketsOnHold()).isEmpty()
 
   thereAreTicketsWithoutComponents: ->
     not _(getTicketsWithoutComponents()).isEmpty()
