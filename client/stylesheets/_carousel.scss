@@ -1,0 +1,29 @@
+.carousel, .item, .active{
+  height:100%;
+}
+
+.carousel-control {
+  color: $darkest-teal;
+  width: 0%;
+
+  &:hover {
+    color: $teal;
+  }
+
+  .glyphicon-chevron-left, .carousel-control .icon-prev {
+    margin-left: -35px;
+  }
+
+  .glyphicon-chevron-right, .carousel-control .icon-next {
+    margin-right: -35px;
+  }
+
+  .left, .right {
+    background-image: none;
+  }
+}
+
+.carousel-inner{
+  height:100%;
+  padding: 10px;
+}

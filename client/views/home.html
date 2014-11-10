@@ -2,142 +2,165 @@
   {{> squadToggle }}
 
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4">
-        <div id="work-remaining" class="card">
-          <div class="card-header">
-            Estimate (days), by Status
-          </div>
-          <div class="card-content">
-            <div>
-              <h3>
-                <strong>Est. Completion Date:</strong><br>
-                {{ completionDate }}
-              </h3>
+    <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="10000">
+      <div class="carousel-inner">
+        <div class="item active">
+          <div class="row">
+            <div class="col-md-4">
+              <div id="work-remaining" class="card">
+                <div class="card-header">
+                  Estimate (days), by Status
+                </div>
+                <div class="card-content">
+                  <div>
+                    <h3>
+                      <strong>Est. Completion Date:</strong><br>
+                      {{ completionDate }}
+                    </h3>
+                  </div>
+                  <div id="work-summary">
+                    <div id="status-icon">
+                      {{ #if onSchedule }}
+                        <i id="on-schedule" class="icon fa fa-check-circle"></i>
+                      {{ else }}
+                        <i id="behind-schedule" class=" icon fa fa-exclamation-triangle"></i>
+                      {{ /if }}
+                    </div>
+                    <label>Completed</label>
+                    <br>
+                    <span>{{ daysCompleted }}</span>
+                    <br>
+                    <label>Remaining</label>
+                    <br>
+                    <span>{{ daysRemaining }}</span>
+                  </div>
+                  <div id="work-chart">
+                    <svg></svg>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div id="work-summary">
-              <div id="status-icon">
-                {{ #if onSchedule }}
-                  <i id="on-schedule" class="icon fa fa-check-circle"></i>
-                {{ else }}
-                  <i id="behind-schedule" class=" icon fa fa-exclamation-triangle"></i>
+
+            <div class="col-md-4">
+              <div class="card">
+                {{ #if thereAreBugs }}
+                  <div id="bugs-by-priority">
+                    <div class="card-header">
+                      Open Defects, by Priority
+                    </div>
+                    <div class="card-content">
+                      <svg></svg>
+                    </div>
+                  </div>
                 {{ /if }}
               </div>
-              <label>Completed</label>
-              <br>
-              <span>{{ daysCompleted }}</span>
-              <br>
-              <label>Remaining</label>
-              <br>
-              <span>{{ daysRemaining }}</span>
             </div>
-            <div id="work-chart">
-              <svg></svg>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-md-4">
-        <div class="card">
-          {{ #if thereAreBugs }}
-            <div id="bugs-by-priority">
-              <div class="card-header">
-                Open Defects, by Priority
-              </div>
-              <div class="card-content">
-                <svg></svg>
+            <div class="col-md-4">
+              <div class="card">
+                {{ #if thereAreBugs }}
+                  <div id="bugs-by-status">
+                    <div class="card-header">
+                      All Defects, by Status
+                    </div>
+                    <div class="card-content">
+                      <svg></svg>
+                    </div>
+                  </div>
+                {{ /if }}
               </div>
             </div>
-          {{ /if }}
+          </div>
         </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="card">
-          {{ #if thereAreBugs }}
-            <div id="bugs-by-status">
-              <div class="card-header">
-                All Defects, by Status
+        <div class="item">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card">
+                <div id="tickets-by-points">
+                  <div class="card-header">
+                    Open Tickets, by Estimate (Points)
+                  </div>
+                  <div class="card-content">
+                    <svg></svg>
+                  </div>
+                </div>
               </div>
-              <div class="card-content">
-                <svg></svg>
+            </div>
+
+              <div class="col-md-8">
+                <div class="card">
+                  <div class="card-header">
+                    Critical Defects
+                  </div>
+                  <div class="card-content">
+                    {{ #if thereAreCriticalBugs }}
+                      {{> ticketList tickets=criticalBugs excludePoints=true}}
+                    {{ else }}
+                      <p>No critical defects</p>
+                    {{ /if }}
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        {{ #if thereAreTicketsWithoutEstimates }}
+          <div class="item">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    Tickets Without Estimates
+                  </div>
+                  <div class="card-content">
+                    {{> ticketList tickets=withoutEstimate excludePoints=true}}
+                  </div>
+                </div>
               </div>
             </div>
-          {{ /if }}
-        </div>
+          </div>
+        {{ /if }}
+
+        {{ #if thereAreTicketsOnHold }}
+          <div class="item">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    Tickets On Hold
+                  </div>
+                  <div class="card-content">
+                    {{> ticketList tickets=onHold }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{ /if }}
+
+        {{ #if thereAreTicketsWithoutComponents }}
+          <div class="item">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    Tickets Without Components
+                  </div>
+                  <div class="card-content">
+                    {{> ticketList tickets=withoutComponent }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{ /if }}
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <div id="tickets-by-points">
-            <div class="card-header">
-              Open Tickets, by Estimate (Points)
-            </div>
-            <div class="card-content">
-              <svg></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-        <div class="col-md-8">
-          <div class="card">
-            <div class="card-header">
-              Critical Defects
-            </div>
-            <div class="card-content">
-              {{ #if thereAreCriticalBugs }}
-                {{> ticketList tickets=criticalBugs excludePoints=true}}
-              {{ else }}
-                <p>No critical defects</p>
-              {{ /if }}
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <div class="row">
-      {{ #if thereAreTicketsWithoutEstimates }}
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              Tickets Without Estimates
-            </div>
-            <div class="card-content">
-              {{> ticketList tickets=withoutEstimate excludePoints=true}}
-            </div>
-          </div>
-        </div>
-      {{ /if }}
-
-      {{ #if thereAreTicketsOnHold }}
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              Tickets On Hold
-            </div>
-            <div class="card-content">
-              {{> ticketList tickets=onHold }}
-            </div>
-          </div>
-        </div>
-      {{ /if }}
-
-      {{ #if thereAreTicketsWithoutComponents }}
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header">
-              Tickets Without Components
-            </div>
-            <div class="card-content">
-              {{> ticketList tickets=withoutComponent }}
-            </div>
-          </div>
-        </div>
-      {{ /if }}
+      <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
     </div>
   </div>
 </template>

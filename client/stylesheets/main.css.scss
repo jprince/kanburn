@@ -11,6 +11,7 @@
 @import 'buttons';
 @import 'header';
 @import 'footer';
+@import 'carousel';
 
 html {
   background-color: $darkest-teal;
@@ -18,5 +19,6 @@ html {
   body {
     @include base-font;
     background-color: $lightest-teal;
+    height:100%;
   }
 }
