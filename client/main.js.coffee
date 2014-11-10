@@ -30,6 +30,12 @@ convertPointsToDays = (points) ->
       else 0
   else points
 
+drawCharts = ->
+  drawDonutChart(getGroupedData(getAllBugs(), 'priority'), 'bugs-by-priority', 0.40, 283, true)
+  drawDonutChart(getGroupedData(getAllBugs(), 'status'), 'bugs-by-status', 0.40, 283, true)
+  drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
+  drawDonutChart(getGroupedData(getOpenTickets(), 'points'), 'tickets-by-points', 0.40, 283, true)
+
 drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
     chart = nv.models.pieChart()
@@ -65,10 +71,6 @@ getAllTickets = ->
     component: Session.get('selectedSquad')
   ).fetch()
 
-getBugsGroupedBy = (grouping) ->
-  groupedData = _(getAllBugs()).groupBy(grouping)
-  aggregatedData = _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
-
 getClosedTickets = ->
   Tickets.find(
     component: Session.get('selectedSquad')
@@ -102,6 +104,10 @@ getEstimatedCompletionDate = ->
           days--
     currentDate
   addWeekdaysToToday(calendarDaysRemaining)
+
+getGroupedData = (data, grouping) ->
+  groupedData = _(data).groupBy(grouping)
+  _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
 
 getOpenTickets = ->
   Tickets.find(
@@ -204,9 +210,7 @@ Template.home.helpers
     getTicketsWithoutEstimates()
 
 Template.home.rendered = ->
-  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.40, 283, true)
-  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.40, 283, true)
-  drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
+  drawCharts()
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
@@ -231,6 +235,4 @@ Template.settings.events 'change input[type=radio]': (event) ->
 
 # Watch Dependencies
 Tracker.autorun ->
-  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.40, 283, true)
-  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.40, 283, true)
-  drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
+  drawCharts()

@@ -70,8 +70,21 @@
     </div>
 
     <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <div id="tickets-by-points">
+            <div class="card-header">
+              Open Tickets, by Estimate (Points)
+            </div>
+            <div class="card-content">
+              <svg></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {{ #if thereAreCriticalBugs }}
-        <div class="col-md-12">
+        <div class="col-md-8">
           <div class="card">
             <div class="card-header">
               Critical Defects
@@ -82,7 +95,9 @@
           </div>
         </div>
       {{ /if }}
+    </div>
 
+    <div class="row">
       {{ #if thereAreTicketsWithoutEstimates }}
         <div class="col-md-12">
           <div class="card">
