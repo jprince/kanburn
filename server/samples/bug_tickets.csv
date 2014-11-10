@@ -26,4 +26,4 @@ Platform,QDWFOUROH-3021,Bug,Update payer_name_id to int,Minor,Deployed
 Platform,QDWFOUROH-3025,Bug,Missing ImmType code set,Minor,Deployed
 Platform,QDWFOUROH-2983,Bug,Facts for Cost Management Timeline,Minor,Deployed
 Front End,QDWFOUROH-2896,Bug,Aggregate report data runs the indicator class against the main grid data,Trivial,Open
-Front End,QDWFOUROH-3023,Bug,Favorites with multi-select filters do not display selected options on load,"""Major""",Deployed
+Front End,QDWFOUROH-3023,Bug,Favorites with multi-select filters do not display selected options on load,Major,Deployed

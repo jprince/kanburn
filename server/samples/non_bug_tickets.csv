@@ -117,4 +117,4 @@ Platform,QDWFOUROH-2871,Improvement,Functional Demographics should de-prioritize
 Platform,QDWFOUROH-2904,New Feature,Risk Adjust Cost Management Reports,Minor,Deployed,2
 Front End,QDWFOUROH-2979,New Feature,Implement log scale function for slider filters,Minor,In Progress,3
 Front End,QDWFOUROH-1639,Improvement,change Items to Providers upon pulldown when all providers is checked,Trivial,Closed,1
-Platform,QDWFOUROH-2905,New Feature,Add Last Preventive Visit to CommonReportFields,"""Major""",Closed,1
+Platform,QDWFOUROH-2905,New Feature,Add Last Preventive Visit to CommonReportFields,Major,Closed,1
