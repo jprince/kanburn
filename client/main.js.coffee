@@ -1,6 +1,5 @@
 # Shared variables and functions
-squads = ['Front End', 'Platform']
-Session.setDefault 'selectedSquad', squads[0]
+Session.setDefault 'selectedSquad', 'Front End'
 
 calculateDays = (openTickets) ->
   settings = getSettings()
@@ -128,6 +127,12 @@ getSettings = ->
     squad: Session.get('selectedSquad')
   ).fetch()[0]
 
+getSquads = ->
+  [
+    { name: 'Front End', activeClass: isActiveSquad('Front End') },
+    { name: 'Platform', activeClass: isActiveSquad('Platform') }
+  ]
+
 getTicketsOnHold = ->
   Tickets.find(
     { component: Session.get('selectedSquad'), title: /\bhold/i },
@@ -145,6 +150,9 @@ getTicketsWithoutEstimates = ->
     { component: Session.get('selectedSquad'), points: '' },
     { fields: { 'points': 0 } }
   ).fetch()
+
+isActiveSquad = (squad) ->
+  if Session.get('selectedSquad') is squad then 'active' else ''
 
 #Header
 Template.header.helpers
@@ -212,6 +220,11 @@ Template.release.helpers
 Template.settings.helpers
   editingDoc: ->
     Settings.findOne({ squad: Session.get('selectedSquad') })
+
+# Components - Squad Toggle
+Template.squadToggle.helpers
+  squads: ->
+    getSquads()
 
 Template.settings.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value

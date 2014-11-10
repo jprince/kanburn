@@ -2,12 +2,11 @@
   <div id="filter-bar">
     <div class="container">
       <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-default active">
-          <input type="radio" name="squad" value="Front End">Front End
+        {{ #each squads }}
+        <label class="btn btn-default {{ activeClass }}">
+          <input type="radio" name="squad" value="{{ name }}">{{ name }}
         </label>
-        <label class="btn btn-default">
-          <input type="radio" name="squad" value="Platform">Platform
-        </label>
+        {{ /each }}
       </div>
     </div>
   </div>
