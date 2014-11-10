@@ -196,8 +196,8 @@ Template.home.helpers
     getTicketsWithoutEstimates()
 
 Template.home.rendered = ->
-  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.55, 283, true)
-  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.55, 283, true)
+  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.40, 283, true)
+  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.40, 283, true)
   drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
 
 Template.home.events 'change input[type=radio]': (event) ->
@@ -218,6 +218,6 @@ Template.settings.events 'change input[type=radio]': (event) ->
 
 # Watch Dependencies
 Tracker.autorun ->
-  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.55, 283, true)
-  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.55, 283, true)
+  drawDonutChart(getBugsGroupedBy('priority'), 'bugs-by-priority', 0.40, 283, true)
+  drawDonutChart(getBugsGroupedBy('status'), 'bugs-by-status', 0.40, 283, true)
   drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
