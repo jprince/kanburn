@@ -39,7 +39,7 @@ drawDonutChart = (data, domId, ratio, size, showLegend) ->
       .height(size)
       .showLabels(false)
       .showLegend(showLegend)
-      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{Math.round(y)} </p>")
       .width(size)
       .x((d) -> d.label)
       .y((d) -> d.value)
