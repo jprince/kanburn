@@ -83,18 +83,20 @@
         </div>
       </div>
 
-      {{ #if thereAreCriticalBugs }}
         <div class="col-md-8">
           <div class="card">
             <div class="card-header">
               Critical Defects
             </div>
             <div class="card-content">
-              {{> ticketList tickets=criticalBugs excludePoints=true}}
+              {{ #if thereAreCriticalBugs }}
+                {{> ticketList tickets=criticalBugs excludePoints=true}}
+              {{ else }}
+                <p>No critical defects</p>
+              {{ /if }}
             </div>
           </div>
         </div>
-      {{ /if }}
     </div>
 
     <div class="row">
