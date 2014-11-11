@@ -29,3 +29,5 @@ Meteor.startup ->
         threeStoryPointEstimate: 0
         fourStoryPointEstimate: 0
         fiveStoryPointEstimate: 0
+        bugEstimate: 0
+        holidayTime: 0

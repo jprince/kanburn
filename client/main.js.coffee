@@ -1,7 +1,7 @@
 # Shared variables and functions
 Session.setDefault 'selectedSquad', 'Front End'
 
-calculateDays = (openTickets) ->
+calculateDays = (nonBugTickets, bugTickets) ->
   settings = getSettings()
 
   unless settings is undefined
@@ -9,10 +9,12 @@ calculateDays = (openTickets) ->
 
     daysByPoints =
       for point in pointOptions
-        _(openTickets).where({points: point}).length * convertPointsToDays(point)
+        _(nonBugTickets).where({points: point}).length * convertPointsToDays(point)
+
+    bugEstimates = bugTickets.length * settings.bugEstimate
 
     daysByPoints.reduce(((daysSoFar, option) ->
-      daysSoFar + option), 0)
+      daysSoFar + option), 0) + bugEstimates
 
 chartColors = ->
   ['#74C449', '#12baae', '#127bb7', '#7c12b5', '#b2115c', '#af5011', '#aaad11']
@@ -33,8 +35,14 @@ convertPointsToDays = (points) ->
 drawCharts = ->
   drawDonutChart(getGroupedData(getAllBugs(), 'priority'), 'bugs-by-priority', 0.40, 283, true)
   drawDonutChart(getGroupedData(getAllBugs(), 'status'), 'bugs-by-status', 0.40, 283, true)
-  drawDonutChart(getPointsGroupedByStatus(), 'work-chart', 0.65, 283, false)
-  drawDonutChart(getGroupedData(getOpenTickets(), 'points'), 'tickets-by-points', 0.40, 283, true)
+  drawDonutChart(getDaysGroupedByStatus(), 'work-chart', 0.65, 283, false)
+  drawDonutChart(
+    getGroupedData(getOpenTicketsWithEstimates(), 'points'),
+    'tickets-by-points',
+    0.40,
+    283,
+    true
+  )
 
 drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
@@ -71,6 +79,13 @@ getAllTickets = ->
     component: Session.get('selectedSquad')
   ).fetch()
 
+getClosedBugs = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+    status: $in: ['Closed', 'Deployed']
+    type: 'Bug'
+  ).fetch()
+
 getClosedTickets = ->
   Tickets.find(
     component: Session.get('selectedSquad')
@@ -84,12 +99,28 @@ getCriticalBugs = ->
     { fields: { 'points': 0 } }
   ).fetch()
 
+getDaysGroupedByStatus = ->
+  settings = getSettings()
+  unless settings is undefined
+    groupedData = _(getAllTickets()).groupBy('status')
+    aggregatedData = _(groupedData).map((value, key) ->
+      label: key
+      value: value.reduce(((daysSoFar, ticket) ->
+        daysSoFar +
+          if ticket.type is 'Bug'
+            settings.bugEstimate
+          else
+            (convertPointsToDays(ticket.points) or 0)
+      ), 0)
+    )
+    aggregatedData
+
 getEstimatedCompletionDate = ->
   settings = getSettings()
   unless settings is undefined
-    daysRemaining = calculateDays(getOpenTickets(), settings)
-    calendarDaysRemaining =
-      Math.ceil((daysRemaining * (1 + settings.riskMultiplier))/settings.velocity)
+    daysRemaining = calculateDays(getOpenTicketsWithEstimates(), getOpenBugs())
+    totalEffort = (daysRemaining * (1 + settings.riskMultiplier)) + settings.holidayTime
+    calendarDaysRemaining = Math.ceil(totalEffort/settings.velocity)
 
   addWeekdaysToToday = (days) ->
     currentDate = moment()
@@ -109,21 +140,19 @@ getGroupedData = (data, grouping) ->
   groupedData = _(data).groupBy(grouping)
   _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
 
-getOpenTickets = ->
+getOpenBugs = ->
+  Tickets.find(
+    component: Session.get('selectedSquad')
+    status: $nin: ['Closed', 'Deployed']
+    type: 'Bug'
+  ).fetch()
+
+getOpenTicketsWithEstimates = ->
   Tickets.find(
     component: Session.get('selectedSquad')
     points: $gt: 0
     status: $nin: ['Closed', 'Deployed']
   ).fetch()
-
-getPointsGroupedByStatus = ->
-  groupedData = _(getAllTickets()).groupBy('status')
-  aggregatedData = _(groupedData).map((value, key) ->
-    label: key
-    value: value.reduce(((daysSoFar, ticket) ->
-      daysSoFar + (convertPointsToDays(ticket.points) or 0)), 0)
-  )
-  aggregatedData
 
 getRelease = ->
   Release.findOne() or {}
@@ -174,10 +203,10 @@ Template.home.helpers
     getCriticalBugs()
 
   daysCompleted: ->
-    calculateDays(getClosedTickets())
+    calculateDays(getClosedTickets(), getClosedBugs())
 
   daysRemaining: ->
-    calculateDays(getOpenTickets())
+    calculateDays(getOpenTicketsWithEstimates(), getOpenBugs())
 
   onHold: ->
     getTicketsOnHold()

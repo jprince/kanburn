@@ -45,4 +45,16 @@ Settings.attachSchema(new SimpleSchema(
     min: 0
     decimal: true
     optional: true
+  bugEstimate:
+    type: Number
+    label: "Bug ticket estimate (days)"
+    min: 0
+    decimal: true
+    optional: false
+  holidayTime:
+    type: Number
+    label: "Holidays/PTO (man days)"
+    min: 0
+    decimal: true
+    optional: false
 ))
