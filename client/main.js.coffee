@@ -153,7 +153,7 @@ getTicketsWithoutComponents = ->
 
 getTicketsWithoutEstimates = ->
   Tickets.find(
-    { component: Session.get('selectedSquad'), points: '' },
+    { component: Session.get('selectedSquad'), points: $in: ['', 0] },
     { fields: { 'points': 0 } }
   ).fetch()
 
