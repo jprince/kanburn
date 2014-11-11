@@ -36,16 +36,24 @@ convertPointsToDays = (points) ->
   else points
 
 drawCharts = ->
-  drawDonutChart(getGroupedData(getAllBugs(), 'priority'), 'bugs-by-priority', 0.40, 283, true)
-  drawDonutChart(getGroupedData(getAllBugs(), 'status'), 'bugs-by-status', 0.40, 283, true)
-  drawDonutChart(getDaysGroupedByStatus(), 'work-chart', 0.65, 283, false)
-  drawDonutChart(
-    getGroupedData(getOpenTicketsWithEstimates(), 'points'),
-    'tickets-by-points',
-    0.40,
-    283,
-    true
-  )
+  bugs = getAllBugs()
+  unless _(bugs).isEmpty()
+    drawDonutChart(getGroupedData(bugs, 'priority'), 'bugs-by-priority', 0.40, 283, true)
+    drawDonutChart(getGroupedData(bugs, 'status'), 'bugs-by-status', 0.40, 283, true)
+
+  daysGroupedByStatus = getDaysGroupedByStatus()
+  unless _(daysGroupedByStatus).isEmpty()
+    drawDonutChart(daysGroupedByStatus, 'work-chart', 0.65, 283, false)
+
+  openTicketsWithEstimates = getOpenTicketsWithEstimates()
+  unless _(openTicketsWithEstimates).isEmpty()
+    drawDonutChart(
+      getGroupedData(openTicketsWithEstimates, 'points'),
+      'tickets-by-points',
+      0.40,
+      283,
+      true
+    )
 
 drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
