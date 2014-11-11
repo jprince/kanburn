@@ -1,8 +1,5 @@
 # Shared variables and functions
 Session.setDefault 'selectedSquad', 'Front End'
-Meteor.setInterval (->
-  toggleSquad()
-), 50000
 
 calculateDays = (nonBugTickets, bugTickets) ->
   settings = getSettings()
@@ -257,6 +254,18 @@ Template.home.helpers
 
 Template.home.rendered = ->
   drawCharts()
+
+_.extend Template.home,
+  created: ->
+    @squadToggleInterval = Meteor.setInterval(->
+      if Session.get('selectedSquad') is 'Front End'
+        Session.set 'selectedSquad', 'Platform'
+      else
+        Session.set 'selectedSquad', 'Front End'
+    , 50000)
+
+  destroyed: ->
+    Meteor.clearInterval @squadToggleInterval
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
