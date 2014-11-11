@@ -212,8 +212,8 @@ Template.home.helpers
     getTicketsOnHold()
 
   onSchedule: ->
-    estimatedCompletionDate = getEstimatedCompletionDate()
-    releaseDate = getRelease().releaseDate
+    estimatedCompletionDate = getEstimatedCompletionDate().startOf('day')
+    releaseDate = moment(getRelease().releaseDate).startOf('day')
 
     estimatedCompletionDate <= releaseDate
 
