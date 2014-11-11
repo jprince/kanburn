@@ -1,5 +1,8 @@
 # Shared variables and functions
 Session.setDefault 'selectedSquad', 'Front End'
+Meteor.setInterval (->
+  toggleSquad()
+), 50000
 
 calculateDays = (nonBugTickets, bugTickets) ->
   settings = getSettings()
@@ -188,6 +191,12 @@ getTicketsWithoutEstimates = ->
 
 isActiveSquad = (squad) ->
   if Session.get('selectedSquad') is squad then 'active' else ''
+
+toggleSquad = ->
+  if Session.get('selectedSquad') is 'Front End'
+    Session.set 'selectedSquad', 'Platform'
+  else
+    Session.set 'selectedSquad', 'Front End'
 
 #Header
 Template.header.helpers
