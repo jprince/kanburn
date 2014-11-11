@@ -124,7 +124,7 @@ getEstimatedCompletionDate = ->
 
   addWeekdaysToToday = (days) ->
     currentDate = moment()
-    while days > 1
+    while days > 0
       switch currentDate.isoWeekday()
         when 6
           currentDate.add(2, 'd')
