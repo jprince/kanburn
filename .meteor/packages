@@ -4,7 +4,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
 coffeescript
 fourseven:scss
@@ -16,4 +15,3 @@ mrt:moment
 chrismbeckett:fontawesome4
 pfafman:nvd3
 mizzao:bootstrap-3
-

@@ -78,39 +78,32 @@ drawDonutChart = (data, domId, ratio, size, showLegend) ->
 
 getAllBugs = ->
   Tickets.find(
-    { component: Session.get('selectedSquad'), type: 'Bug' },
+    { type: 'Bug' },
     { fields: { 'points': 0 } }
-  ).fetch()
-
-getAllTickets = ->
-  Tickets.find(
-    component: Session.get('selectedSquad')
   ).fetch()
 
 getClosedBugs = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
     status: $in: ['Closed', 'Deployed']
     type: 'Bug'
   ).fetch()
 
 getClosedTickets = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
     points: $gt: 0
     status: $in: ['Closed', 'Deployed']
   ).fetch()
 
 getCriticalBugs = ->
   Tickets.find(
-    { component: Session.get('selectedSquad'), priority: 'Critical', type: 'Bug'},
+    { priority: 'Critical', type: 'Bug'},
     { fields: { 'points': 0 } }
   ).fetch()
 
 getDaysGroupedByStatus = ->
   settings = getSettings()
   unless settings is undefined
-    groupedData = _(getAllTickets()).groupBy('status')
+    groupedData = _(Tickets.find().fetch()).groupBy('status')
     aggregatedData = _(groupedData).map((value, key) ->
       label: key
       value: value.reduce(((daysSoFar, ticket) ->
@@ -150,14 +143,12 @@ getGroupedData = (data, grouping) ->
 
 getOpenBugs = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
     status: $nin: ['Closed', 'Deployed']
     type: 'Bug'
   ).fetch()
 
 getOpenTicketsWithEstimates = ->
   Tickets.find(
-    component: Session.get('selectedSquad')
     points: $gt: 0
     status: $nin: ['Closed', 'Deployed']
   ).fetch()
@@ -178,7 +169,7 @@ getSquads = ->
 
 getTicketsOnHold = ->
   Tickets.find(
-    { component: Session.get('selectedSquad'), title: /\bhold/i },
+    { title: /\bhold/i },
     { fields: { 'component': 0 } }
   ).fetch()
 
@@ -190,18 +181,12 @@ getTicketsWithoutComponents = ->
 
 getTicketsWithoutEstimates = ->
   Tickets.find(
-    { component: Session.get('selectedSquad'), points: $in: ['', 0] },
+    { points: $in: ['', 0] },
     { fields: { 'points': 0 } }
   ).fetch()
 
 isActiveSquad = (squad) ->
   if Session.get('selectedSquad') is squad then 'active' else ''
-
-toggleSquad = ->
-  if Session.get('selectedSquad') is 'Front End'
-    Session.set 'selectedSquad', 'Platform'
-  else
-    Session.set 'selectedSquad', 'Front End'
 
 #Header
 Template.header.helpers
@@ -290,4 +275,8 @@ Template.settings.events 'change input[type=radio]': (event) ->
 
 # Watch Dependencies
 Tracker.autorun ->
+  Meteor.subscribe('release')
+  Meteor.subscribe('settings', Session.get('selectedSquad'))
+  Meteor.subscribe('tickets', Session.get('selectedSquad'))
+  Meteor.subscribe('ticketsWithoutComponents')
   drawCharts()
