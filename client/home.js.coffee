@@ -58,3 +58,7 @@ _.extend Template.home,
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
+
+Tracker.autorun ->
+  if ticketSubscriptionHandle.ready()
+    drawCharts()
