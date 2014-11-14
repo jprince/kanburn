@@ -9,8 +9,8 @@ Meteor.startup ->
 
   if Release.find().count() is 0
     Release.insert
-      name: '4.5'
-      releaseDate: new Date('12/31/2014')
+      name: '4.6'
+      releaseDate: new Date('01/15/2015')
 
   squads = ['Platform', 'Front End']
   _(squads).each (squad) ->
