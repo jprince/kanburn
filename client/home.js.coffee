@@ -43,21 +43,19 @@ Template.home.helpers
 
 Template.home.rendered = ->
   drawCharts()
-
-_.extend Template.home,
-  created: ->
-    @squadToggleInterval = Meteor.setInterval(->
-      if Session.get('selectedSquad') is 'Front End'
-        Session.set 'selectedSquad', 'Platform'
-      else
-        Session.set 'selectedSquad', 'Front End'
-    , 53000)
-
-  destroyed: ->
-    Meteor.clearInterval @squadToggleInterval
+  Session.set 'sliderRotations', 0
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'selectedSquad', event.currentTarget.value
+
+Template.home.events 'slide.bs.carousel': (event) ->
+  Session.set 'sliderRotations', Session.get('sliderRotations') + 1
+
+  if Session.get('sliderRotations') % 5 is 0
+    Session.set(
+      'selectedSquad',
+      if Session.get('selectedSquad') is 'Front End' then 'Platform' else 'Front End'
+    )
 
 Tracker.autorun ->
   if ticketSubscriptionHandle.ready()
