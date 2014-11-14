@@ -77,7 +77,7 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
 @getAllBugs = ->
   Tickets.find(
-    { type: 'Bug' },
+    type: 'Bug'
     { fields: { 'points': 0 } }
   ).fetch()
 
@@ -95,7 +95,8 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
 @getCriticalBugs = ->
   Tickets.find(
-    { priority: 'Critical', type: 'Bug'},
+    priority: 'Critical'
+    type: 'Bug'
     { fields: { 'points': 0 } }
   ).fetch()
 
@@ -168,19 +169,20 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
 @getTicketsOnHold = ->
   Tickets.find(
-    { title: /\bhold/i },
+    title: /\bhold/i
     { fields: { 'component': 0 } }
   ).fetch()
 
 @getTicketsWithoutComponents = ->
   Tickets.find(
-    { component: '' },
+    component: ''
     { fields: { 'component': 0 } }
   ).fetch()
 
 @getTicketsWithoutEstimates = ->
   Tickets.find(
-    { points: $in: ['', 0] },
+    points: $in: ['', 0]
+    type: $ne: 'Bug'
     { fields: { 'points': 0 } }
   ).fetch()
 
