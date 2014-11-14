@@ -14,31 +14,32 @@ Meteor.publish 'tickets', (selectedSquad) ->
   authorizationHeader = "Basic #{CryptoJS.enc.Base64.stringify(headerValue)}"
 
   try
-    non_bug_ticket_response = HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=10805&maxResults=1000',
-      headers:
-        "Authorization": authorizationHeader
-    ).data.issues
+    nonBugTickets =
+      HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=10805&maxResults=1000',
+        headers:
+          "Authorization": authorizationHeader
+      ).data.issues
 
-    bug_ticket_response = HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11455&maxResults=1000',
-      headers:
-        "Authorization": authorizationHeader
-    ).data.issues
+    bugTickets =
+      HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11455&maxResults=1000',
+        headers:
+          "Authorization": authorizationHeader
+      ).data.issues
 
-    tickets_without_components_response = HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11472&maxResults=1000',
-      headers:
-        "Authorization": authorizationHeader
-    ).data.issues
+    ticketsWithoutComponents =
+      HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11472&maxResults=1000',
+        headers:
+          "Authorization": authorizationHeader
+      ).data.issues
 
-    tickets_with_components_response = non_bug_ticket_response.concat(bug_ticket_response)
+    ticketsWithComponents = nonBugTickets.concat(bugTickets)
 
-    filteredResponse = _(tickets_with_components_response.map (issue) ->
+    ticketsForSelectedSquad = _(ticketsWithComponents.map (issue) ->
       if issue.fields.components[0].name is selectedSquad
         issue
-      ).compact()
+      ).compact().concat(ticketsWithoutComponents)
 
-    aggregate_response = filteredResponse.concat(tickets_without_components_response)
-
-    formattedResponse = _(aggregate_response).forEach (issue) ->
+    formattedTickets = _(ticketsForSelectedSquad).forEach (issue) ->
       doc =
         component: if issue.fields.components[0] then  issue.fields.components[0].name else ''
         id: issue.key
