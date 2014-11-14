@@ -13,31 +13,41 @@ Meteor.publish 'tickets', (selectedSquad) ->
   headerValue = CryptoJS.enc.Utf8.parse("#{username}:#{password}")
   authorizationHeader = "Basic #{CryptoJS.enc.Base64.stringify(headerValue)}"
 
+  apiRoute = (filterId) ->
+    "https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=#{filterId}&maxResults=1000"
+
+  jiraFilterMappings =
+    'Front End':
+      nonBugTickets: '11475'
+      bugTickets: '11473'
+    'Platform':
+      nonBugTickets: '11476'
+      bugTickets: '11474'
+    withoutComponents: '11472'
+
   try
     nonBugTickets =
-      HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=10805&maxResults=1000',
+      HTTP.get(
+        apiRoute(jiraFilterMappings["#{selectedSquad}"].nonBugTickets),
         headers:
           "Authorization": authorizationHeader
       ).data.issues
 
     bugTickets =
-      HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11455&maxResults=1000',
+      HTTP.get(
+        apiRoute(jiraFilterMappings["#{selectedSquad}"].bugTickets),
         headers:
           "Authorization": authorizationHeader
       ).data.issues
 
     ticketsWithoutComponents =
-      HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11472&maxResults=1000',
+      HTTP.get(
+        apiRoute(jiraFilterMappings.withoutComponents),
         headers:
           "Authorization": authorizationHeader
       ).data.issues
 
-    ticketsWithComponents = nonBugTickets.concat(bugTickets)
-
-    ticketsForSelectedSquad = _(ticketsWithComponents.map (issue) ->
-      if issue.fields.components[0].name is selectedSquad
-        issue
-      ).compact().concat(ticketsWithoutComponents)
+    ticketsForSelectedSquad = nonBugTickets.concat(bugTickets).concat(ticketsWithoutComponents)
 
     formattedTickets = _(ticketsForSelectedSquad).forEach (issue) ->
       doc =
