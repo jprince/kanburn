@@ -19,23 +19,28 @@ Meteor.publish 'tickets', (selectedSquad) ->
         "Authorization": authorizationHeader
     ).data.issues
 
-    bug_ticket_response = HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11455',
+    bug_ticket_response = HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11455&maxResults=1000',
       headers:
         "Authorization": authorizationHeader
     ).data.issues
 
-    response = non_bug_ticket_response.concat(bug_ticket_response)
+    tickets_without_components_response = HTTP.get('https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=11472&maxResults=1000',
+      headers:
+        "Authorization": authorizationHeader
+    ).data.issues
 
-    console.log non_bug_ticket_response.length
+    tickets_with_components_response = non_bug_ticket_response.concat(bug_ticket_response)
 
-    filteredResponse = _(response.map (issue) ->
+    filteredResponse = _(tickets_with_components_response.map (issue) ->
       if issue.fields.components[0].name is selectedSquad
         issue
       ).compact()
 
-    formattedResponse = _(filteredResponse).forEach (issue) ->
+    aggregate_response = filteredResponse.concat(tickets_without_components_response)
+
+    formattedResponse = _(aggregate_response).forEach (issue) ->
       doc =
-        component: issue.fields.components[0].name
+        component: if issue.fields.components[0] then  issue.fields.components[0].name else ''
         id: issue.key
         type: issue.fields.issuetype.name
         title: issue.fields.summary
@@ -49,8 +54,3 @@ Meteor.publish 'tickets', (selectedSquad) ->
 
   catch error
     console.log error
-
-Meteor.publish 'ticketsWithoutComponents', ->
-  Tickets.find(
-    { component: '' },
-  )
