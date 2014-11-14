@@ -51,7 +51,7 @@ _.extend Template.home,
         Session.set 'selectedSquad', 'Platform'
       else
         Session.set 'selectedSquad', 'Front End'
-    , 50000)
+    , 53000)
 
   destroyed: ->
     Meteor.clearInterval @squadToggleInterval
