@@ -1,3 +1,5 @@
+closedTicketStatuses = ['Review', 'Closed', 'Deployed']
+
 @calculateDays = (nonBugTickets, bugTickets) ->
   settings = getSettings()
 
@@ -81,14 +83,14 @@
 
 @getClosedBugs = ->
   Tickets.find(
-    status: $in: ['Closed', 'Deployed']
+    status: $in: closedTicketStatuses
     type: 'Bug'
   ).fetch()
 
 @getClosedTickets = ->
   Tickets.find(
     points: $gt: 0
-    status: $in: ['Closed', 'Deployed']
+    status: $in: closedTicketStatuses
   ).fetch()
 
 @getCriticalBugs = ->
@@ -140,14 +142,14 @@
 
 @getOpenBugs = ->
   Tickets.find(
-    status: $nin: ['Closed', 'Deployed']
+    status: $nin: closedTicketStatuses
     type: 'Bug'
   ).fetch()
 
 @getOpenTicketsWithEstimates = ->
   Tickets.find(
     points: $gt: 0
-    status: $nin: ['Closed', 'Deployed']
+    status: $nin: closedTicketStatuses
   ).fetch()
 
 @getRelease = ->
