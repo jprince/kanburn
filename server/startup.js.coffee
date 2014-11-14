@@ -2,8 +2,6 @@ Meteor.startup ->
   Meteor.methods
     removeAllSettings: ->
       Settings.remove({})
-    removeAllTickets: ->
-      Tickets.remove({})
     removeRelease: ->
       Release.remove({})
 
