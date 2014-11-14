@@ -29,7 +29,10 @@ If running on a specific port
 $ meteor --port <port>
 ```
 
-### Seed your database
+### Seed your database with sample data (optional)
+Note: Seeding tickets is only necessary if you're working offline; otherwise data from the JIRA
+API feed will be used. Seeds for tickets and the release are added automatically by Meteor.
+
 Install [MongoDB][].
 [MongoDB]: http://www.mongodb.org/downloads
 
@@ -45,10 +48,8 @@ From within the `bin` directory of the MongoDB package, run:
 If you fail to connect to the database, check your running processes to see which port your Meteor
 DB is running on. Update `localhost:3001` in the above command to reflect the appropriate port.
 
-Seeds for tickets and the release will be run automatically by Meteor.
-
 ### Deleting data
 The following methods can be executed from the console:
 - `Meteor.call('removeAllSettings')`
-- `Meteor.call('removeAllTickets')`
+- `Meteor.call('removeAllTickets')` (if you've seeded your database with sample data)
 - `Meteor.call('removeRelease')`
