@@ -74,7 +74,6 @@ Platform,QDWFOUROH-2928,Improvement,Add Next Appt Date to all reports (where it 
 Platform,QDWFOUROH-2779,New Feature,HOLD - CM Geocoding Procedure,Major,Open,13
 Platform,QDWFOUROH-3058,New Feature,HOLD - HCC Algorithm to ignore non face to face encounters,Major,Open,3
 Platform,QDWFOUROH-3059,New Feature,HOLD - Update inpatient stay logic,Major,Open,3
-Platform,QDWFOUROH-2783,Epic,CM Group Analysis,Major,Open,13
 Platform,QDWFOUROH-2966,New Feature,HOLD - Load Group Analysis Specialty Mapping,Major,Closed,1
 Platform,QDWFOUROH-2994,New Feature,Security Check for Utilization PCP Selection,Major,Closed,1
 Platform,QDWFOUROH-2968,New Feature,HOLD - CM Group Analyzer,Major,In Progress,5
