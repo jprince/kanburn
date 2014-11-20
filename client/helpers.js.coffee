@@ -96,6 +96,7 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 @getCriticalBugs = ->
   Tickets.find(
     priority: 'Critical'
+    status: $nin: closedTicketStatuses
     type: 'Bug'
     { fields: { 'points': 0 } }
   ).fetch()
