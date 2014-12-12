@@ -11,6 +11,9 @@ Template.home.helpers
   daysRemaining: ->
     calculateDays(getOpenTicketsWithEstimates(), getOpenBugs())
 
+  isLoading: ->
+    Session.get('loading')
+
   onHold: ->
     getTicketsOnHold()
 
@@ -49,6 +52,7 @@ Template.home.rendered = ->
   Session.set 'sliderRotations', 0
 
 Template.home.events 'change input[type=radio]': (event) ->
+  Session.set 'loading', true
   Session.set 'selectedSquad', event.currentTarget.value
 
 Template.home.events 'slide.bs.carousel': (event) ->
@@ -61,5 +65,7 @@ Template.home.events 'slide.bs.carousel': (event) ->
     )
 
 Tracker.autorun ->
+  Session.set 'loading', true
   if ticketSubscriptionHandle.ready()
+    Session.set 'loading', false
     drawCharts()

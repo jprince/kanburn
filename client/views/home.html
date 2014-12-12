@@ -2,6 +2,9 @@
   {{> squadToggle }}
 
   <div class="container-fluid">
+    {{ #if isLoading }}
+      {{> loadingOverlay }}
+    {{ /if }}
     <div
       id="carousel"
       class="carousel slide"
