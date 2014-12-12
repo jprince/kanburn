@@ -21,5 +21,9 @@ html {
     @include base-font;
     background-color: $lightest-teal;
     height:100%;
+
+    .float-right {
+      float: right;
+    }
   }
 }

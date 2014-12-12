@@ -19,10 +19,7 @@ Template.home.helpers
 
   onSchedule: ->
     estimatedCompletionDate = getEstimatedCompletionDate().startOf('day')
-
-    storedReleaseDate = moment(getRelease().releaseDate)
-    timezoneOffset = storedReleaseDate.zone()
-    releaseDate = storedReleaseDate.add(timezoneOffset, 'm')
+    releaseDate = adjustForTimezone(getRelease().releaseDate)
 
     estimatedCompletionDate <= releaseDate
 

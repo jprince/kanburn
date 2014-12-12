@@ -1,10 +1,12 @@
 header {
   background-color: $darkest-teal;
+  color: $dark-orange;
+
 
   h1 {
-    color: $dark-orange;
     float: left;
     font-size: 3.5em;
+    margin-top: 35px;
   }
 
   #navigation {
@@ -13,7 +15,7 @@ header {
       text-decoration: none;
 
       &:hover {
-        color: $orange;
+        color: $darker-orange;
         text-decoration: underline;
       }
     }
@@ -23,4 +25,21 @@ header {
 #filter-bar {
   background-color: $darkest-teal-hover;
   padding: 10px;
+}
+
+#release-information {
+  color: $orange;
+  margin-top: 13px;
+  text-align: right;
+
+  .labels {
+    float: left;
+  }
+
+  .values {
+    float: left;
+    font-weight: 600;
+    padding-left: 10px;
+    text-transform: uppercase;
+  }
 }

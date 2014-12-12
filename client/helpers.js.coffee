@@ -1,5 +1,11 @@
 closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
+@adjustForTimezone = (date) ->
+  dateObject = moment(date)
+  timezoneOffset = dateObject.zone()
+
+  dateObject.add(timezoneOffset, 'm')
+
 @calculateDays = (nonBugTickets, bugTickets) ->
   settings = getSettings()
 
