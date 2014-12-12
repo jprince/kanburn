@@ -28,7 +28,6 @@ header {
 }
 
 #release-information {
-  color: $orange;
   margin-top: 13px;
   text-align: right;
 
@@ -37,6 +36,7 @@ header {
   }
 
   .values {
+    color: $orange;
     float: left;
     font-weight: 600;
     padding-left: 10px;
