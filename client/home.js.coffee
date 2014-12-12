@@ -46,16 +46,15 @@ Template.home.helpers
 
 Template.home.rendered = ->
   drawCharts()
-  Session.set 'sliderRotations', 0
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'loading', true
   Session.set 'selectedSquad', event.currentTarget.value
 
 Template.home.events 'slide.bs.carousel': (event) ->
-  Session.set 'sliderRotations', Session.get('sliderRotations') + 1
+  nextCardIsFirstCard = ($(event.relatedTarget).find('#work-remaining')).length > 0
 
-  if Session.get('sliderRotations') % 5 is 0
+  if nextCardIsFirstCard
     Session.set(
       'selectedSquad',
       if Session.get('selectedSquad') is 'Front End' then 'Platform' else 'Front End'
