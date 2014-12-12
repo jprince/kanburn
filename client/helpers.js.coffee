@@ -132,16 +132,18 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
   addWeekdaysToToday = (days) ->
     currentDate = moment()
-    while days > 0
+    while days >= 0
       switch currentDate.isoWeekday()
         when 6
           currentDate.add(2, 'd')
+          days-- if days is 0
         when 7
           currentDate.add(1, 'd')
         else
           currentDate.add(1, 'd')
           days--
     currentDate
+
   addWeekdaysToToday(calendarDaysRemaining)
 
 @getGroupedData = (data, grouping) ->
