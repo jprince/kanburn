@@ -38,10 +38,13 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
   else points
 
 @drawCharts = ->
-  bugs = getAllBugs()
-  unless _(bugs).isEmpty()
-    drawDonutChart(getGroupedData(bugs, 'priority'), 'bugs-by-priority', 0.40, 283, true)
-    drawDonutChart(getGroupedData(bugs, 'status'), 'bugs-by-status', 0.40, 283, true)
+  allBugs = getAllBugs()
+  unless _(allBugs).isEmpty()
+    drawDonutChart(getGroupedData(allBugs, 'status'), 'bugs-by-status', 0.40, 283, true)
+
+  openBugs = getOpenBugs()
+  unless _(openBugs).isEmpty()
+    drawDonutChart(getGroupedData(openBugs, 'priority'), 'open-bugs-by-priority', 0.40, 283, true)
 
   daysGroupedByStatus = getDaysGroupedByStatus()
   unless _(daysGroupedByStatus).isEmpty()
