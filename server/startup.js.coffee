@@ -4,13 +4,19 @@ Meteor.startup ->
       Settings.remove({})
     removeAllTickets: ->
       Tickets.remove({})
-    removeRelease: ->
-      Release.remove({})
+    removeReleases: ->
+      Releases.remove({})
 
-  if Release.find().count() is 0
-    Release.insert
-      name: '4.6'
-      releaseDate: new Date('01/15/2015')
+  if Releases.find().count() is 0
+    Releases.insert
+      squad: 'Front End'
+      name: '4.7'
+      releaseDate: new Date('03/31/2015')
+
+    Releases.insert
+      squad: 'Platform'
+      name: '5.0'
+      releaseDate: new Date('06/30/2015')
 
   squads = ['Platform', 'Front End']
   _(squads).each (squad) ->

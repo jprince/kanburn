@@ -1,10 +1,13 @@
-Template.release.helpers
+Template.releases.helpers
   editingDoc: ->
     getRelease()
 
 Template.settings.helpers
   editingDoc: ->
-    Settings.findOne({ squad: Session.get('selectedSquad') })
+    getSettings()
+
+Template.releases.events 'change input[type=radio]': (event) ->
+  setSelectedSquad(event.currentTarget.value)
 
 Template.settings.events 'change input[type=radio]': (event) ->
-  Session.set 'selectedSquad', event.currentTarget.value
+  setSelectedSquad(event.currentTarget.value)

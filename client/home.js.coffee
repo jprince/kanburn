@@ -19,9 +19,9 @@ Template.home.helpers
 
   onSchedule: ->
     estimatedCompletionDate = getEstimatedCompletionDate().startOf('day')
-    releaseDate = adjustForTimezone(getRelease().releaseDate)
-
-    estimatedCompletionDate <= releaseDate
+    if release = getRelease()
+      releaseDate = adjustForTimezone(release.releaseDate)
+      estimatedCompletionDate <= releaseDate
 
   thereAreBugs: ->
     not _(getAllBugs()).isEmpty()
@@ -49,7 +49,7 @@ Template.home.rendered = ->
 
 Template.home.events 'change input[type=radio]': (event) ->
   Session.set 'loading', true
-  Session.set 'selectedSquad', event.currentTarget.value
+  setSelectedSquad(event.currentTarget.value)
 
 Template.home.events 'slide.bs.carousel': (event) ->
   nextCardIsFirstCard = ($(event.relatedTarget).find('#work-remaining')).length > 0

@@ -1,5 +1,7 @@
-Meteor.publish 'release', ->
-  Release.find()
+Meteor.publish 'releases', (selectedSquad) ->
+  Releases.find(
+    squad: selectedSquad
+  )
 
 Meteor.publish 'settings', (selectedSquad) ->
   Settings.find(

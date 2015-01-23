@@ -52,4 +52,4 @@ DB is running on. Update `localhost:3001` in the above command to reflect the ap
 The following methods can be executed from the console:
 - `Meteor.call('removeAllSettings')`
 - `Meteor.call('removeAllTickets')` (if you've seeded your database with sample data)
-- `Meteor.call('removeRelease')`
+- `Meteor.call('removeReleases')`

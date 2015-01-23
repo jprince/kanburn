@@ -166,12 +166,10 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
   ).fetch()
 
 @getRelease = ->
-  Release.findOne() or {}
+  Releases.findOne({ squad: Session.get('selectedSquad') })
 
 @getSettings = ->
-  Settings.find(
-    squad: Session.get('selectedSquad')
-  ).fetch()[0]
+  Settings.findOne({ squad: Session.get('selectedSquad') })
 
 @getSquads = ->
   [
@@ -201,3 +199,6 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
 @isActiveSquad = (squad) ->
   if Session.get('selectedSquad') is squad then 'active' else ''
+
+@setSelectedSquad = (squad) ->
+  Session.set 'selectedSquad', squad

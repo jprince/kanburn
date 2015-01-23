@@ -10,5 +10,5 @@ Router.configure(
 Router.map ->
   @route 'admin', path: '/admin'
   @route 'home', path: '/'
-  @route 'release', path: '/admin/release'
+  @route 'releases', path: '/admin/releases'
   @route 'settings', path: '/admin/settings'
