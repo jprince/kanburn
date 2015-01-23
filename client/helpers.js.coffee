@@ -161,6 +161,7 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 
 @getOpenTicketsWithEstimates = ->
   Tickets.find(
+    labels: $ne: 'ExcludeFromKanburn'
     points: $gt: 0
     status: $nin: closedTicketStatuses
   ).fetch()

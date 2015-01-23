@@ -55,11 +55,12 @@ Meteor.publish 'tickets', (selectedSquad) ->
       doc =
         component: if issue.fields.components[0] then issue.fields.components[0].name else ''
         id: issue.key
-        type: issue.fields.issuetype.name
-        title: issue.fields.summary
-        priority: issue.fields.priority.name
-        status: issue.fields.status.name
         points: issue.fields.customfield_10002 or ''
+        priority: issue.fields.priority.name
+        labels: issue.fields.labels
+        status: issue.fields.status.name
+        title: issue.fields.summary
+        type: issue.fields.issuetype.name
 
       self.added 'tickets', Random.id(), doc
 
