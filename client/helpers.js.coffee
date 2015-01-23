@@ -188,6 +188,7 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 @getTicketsWithoutComponents = ->
   Tickets.find(
     component: ''
+    status: $nin: closedTicketStatuses
     { fields: { 'component': 0 } }
   ).fetch()
 
