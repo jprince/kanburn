@@ -1,3 +1,10 @@
+isFirstLoad = true
+
+pauseCarousel = ->
+  Meteor.setTimeout (->
+    $('#carousel').carousel('pause')
+  ), 200
+
 Template.home.helpers
   completionDate: ->
     getEstimatedCompletionDate().format('MMMM DD')
@@ -48,6 +55,7 @@ Template.home.rendered = ->
   drawCharts()
 
 Template.home.events 'change input[type=radio]': (event) ->
+  pauseCarousel()
   Session.set 'loading', true
   setSelectedSquad(event.currentTarget.value)
 
@@ -55,6 +63,7 @@ Template.home.events 'slide.bs.carousel': (event) ->
   nextCardIsFirstCard = ($(event.relatedTarget).find('#work-remaining')).length > 0
 
   if nextCardIsFirstCard
+    pauseCarousel()
     Session.set(
       'selectedSquad',
       if Session.get('selectedSquad') is 'Front End' then 'Platform' else 'Front End'
@@ -63,5 +72,10 @@ Template.home.events 'slide.bs.carousel': (event) ->
 Tracker.autorun ->
   Session.set 'loading', true
   if ticketSubscriptionHandle.ready()
-    Session.set 'loading', false
+    if isFirstLoad
+      $('#carousel').carousel(interval: '20000')
+      isFirstLoad = false
+    else
+      $('#carousel').carousel(pause: 'hover')
     drawCharts()
+    Session.set 'loading', false
