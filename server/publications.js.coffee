@@ -9,14 +9,16 @@ Meteor.publish 'settings', (selectedSquad) ->
   )
 
 Meteor.publish 'tickets', (selectedSquad) ->
-  self = this
+  self = @
   username = process.env.JIRA_USERNAME
   password = process.env.JIRA_PASSWORD
   headerValue = CryptoJS.enc.Utf8.parse("#{username}:#{password}")
   authorizationHeader = "Basic #{CryptoJS.enc.Base64.stringify(headerValue)}"
+  baseUrl = 'https://jira.wedostuffwell.com/rest/api/latest/search?jql='
+  fields = 'components,customfield_10002,issuetype,labels,priority,status,summary'
 
   apiRoute = (filterId) ->
-    "https://jira.wedostuffwell.com/rest/api/latest/search?jql=filter=#{filterId}&maxResults=1000"
+    "#{baseUrl}filter=#{filterId}&fields=#{fields}&maxResults=1000"
 
   jiraFilterMappings =
     'Front End':
