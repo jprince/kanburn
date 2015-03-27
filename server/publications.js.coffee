@@ -27,6 +27,9 @@ Meteor.publish 'tickets', (selectedSquad) ->
     'Platform':
       nonBugTickets: '11476'
       bugTickets: '11474'
+    'Platform 5.0':
+      nonBugTickets: '12029'
+      bugTickets: '12028'
     withoutComponents: '11472'
 
   try

@@ -175,7 +175,8 @@ closedTicketStatuses = ['Review', 'Closed', 'Deployed']
 @getSquads = ->
   [
     { name: 'Front End', activeClass: isActiveSquad('Front End') },
-    { name: 'Platform', activeClass: isActiveSquad('Platform') }
+    { name: 'Platform', activeClass: isActiveSquad('Platform') },
+    { name: 'Platform 5.0', activeClass: isActiveSquad('Platform 5.0') }
   ]
 
 @getTicketsOnHold = ->

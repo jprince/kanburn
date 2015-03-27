@@ -66,8 +66,14 @@ Template.home.events 'slide.bs.carousel': (event) ->
     pauseCarousel()
     Session.set(
       'selectedSquad',
-      if Session.get('selectedSquad') is 'Front End' then 'Platform' else 'Front End'
-    )
+      switch Session.get('selectedSquad')
+        when 'Front End'
+          'Platform'
+        when 'Platform'
+          'Platform 5.0'
+        else
+          'Front End'
+      )
 
 Tracker.autorun ->
   Session.set 'loading', true

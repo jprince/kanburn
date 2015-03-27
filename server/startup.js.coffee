@@ -10,15 +10,20 @@ Meteor.startup ->
   if Releases.find().count() is 0
     Releases.insert
       squad: 'Front End'
-      name: '4.7'
+      name: 'FE4.7'
       releaseDate: new Date('03/31/2015')
 
     Releases.insert
       squad: 'Platform'
-      name: '5.0'
+      name: 'P4.7'
+      releaseDate: new Date('03/31/2015')
+
+    Releases.insert
+      squad: 'Platform 5.0'
+      name: 'P5.0'
       releaseDate: new Date('06/30/2015')
 
-  squads = ['Platform', 'Front End']
+  squads = ['Front End', 'Platform', 'Platform 5.0']
   _(squads).each (squad) ->
     settings =
       Settings.find(
