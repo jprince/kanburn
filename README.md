@@ -53,3 +53,27 @@ The following methods can be executed from the console:
 - `Meteor.call('removeAllSettings')`
 - `Meteor.call('removeAllTickets')` (if you've seeded your database with sample data)
 - `Meteor.call('removeReleases')`
+
+### Debugging server side code
+As with other languages, your browser's developer tools can be used for debugging client-side code.
+For server-side debugging, you can use [node-inspector][].
+
+Install node-inspector
+```sh
+$ npm install -g node-inspector
+```
+
+Start Meteor in debug mode
+```sh
+$ env NODE_OPTIONS='--debug' meteor
+```
+
+In a new terminal, start node-inspector
+```sh
+$ node-inspector
+```
+
+Go to the URL given to you by node-inspector. You'll see a screen that resembles Chrome's
+developer tools. Use this interface to insert breakpoints and do any other debugging.
+
+[node-inspector]: https://github.com/node-inspector/node-inspector
