@@ -7,24 +7,30 @@ Meteor.startup ->
     removeReleases: ->
       Releases.remove({})
 
-  if Releases.find().count() is 0
-    Releases.insert
-      squad: 'Front End'
-      name: 'FE4.7'
-      releaseDate: new Date('03/31/2015')
-
-    Releases.insert
-      squad: 'Platform'
-      name: 'P4.7'
-      releaseDate: new Date('03/31/2015')
-
-    Releases.insert
-      squad: 'Platform 5.0'
-      name: 'P5.0'
-      releaseDate: new Date('06/30/2015')
-
   squads = ['Front End', 'Platform', 'Platform 5.0']
   _(squads).each (squad) ->
+    release =
+      Releases.find(
+        squad: squad
+      ).fetch()
+
+    if _(release).isEmpty()
+      switch squad
+        when 'Front End'
+          name = 'FE4.7'
+          releaseDate = new Date('05/31/2015')
+        when 'Platform'
+          name = 'P4.7'
+          releaseDate = new Date('05/31/2015')
+        else
+          name = 'P5.0'
+          releaseDate = new Date('09/30/2015')
+
+      Releases.insert
+        squad: squad
+        name: name
+        releaseDate: releaseDate
+
     settings =
       Settings.find(
         squad: squad
