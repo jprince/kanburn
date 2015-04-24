@@ -26,6 +26,7 @@ Meteor.startup ->
           name = 'P5.0'
           releaseDate = new Date('09/30/2015')
 
+      console.log "Inserting release for #{ squad }"
       Releases.insert
         squad: squad
         name: name
@@ -37,6 +38,7 @@ Meteor.startup ->
       ).fetch()
 
     if _(settings).isEmpty()
+      console.log "Inserting settings for #{ squad }"
       Settings.insert
         squad: squad
         velocity: 0
