@@ -1,4 +1,4 @@
-closedTicketStatuses = ['Review', 'Closed', 'Deployed']
+closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
 @adjustForTimezone = (date) ->
   dateObject = moment(date)
