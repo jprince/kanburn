@@ -71,6 +71,8 @@ Template.home.events 'slide.bs.carousel': (event) ->
           'Platform'
         when 'Platform'
           'Platform 5.0'
+        when 'Platform 5.0'
+          'Measures'
         else
           'Front End'
       )

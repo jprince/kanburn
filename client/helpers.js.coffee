@@ -25,7 +25,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   ['#74C449', '#12baae', '#127bb7', '#7c12b5', '#b2115c', '#af5011', '#aaad11']
 
 @convertPointsToDays = (points) ->
-  if Session.get('selectedSquad') is 'Front End'
+  if Session.get('selectedSquad') in ['Front End', 'Measures']
     settings = getSettings()
 
     switch points
@@ -174,9 +174,10 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
 @getSquads = ->
   [
-    { name: 'Front End', activeClass: isActiveSquad('Front End') },
-    { name: 'Platform', activeClass: isActiveSquad('Platform') },
+    { name: 'Front End', activeClass: isActiveSquad('Front End') }
+    { name: 'Platform', activeClass: isActiveSquad('Platform') }
     { name: 'Platform 5.0', activeClass: isActiveSquad('Platform 5.0') }
+    { name: 'Measures', activeClass: isActiveSquad('Measures') }
   ]
 
 @getTicketsOnHold = ->
@@ -186,11 +187,14 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   ).fetch()
 
 @getTicketsWithoutComponents = ->
-  Tickets.find(
-    component: ''
-    status: $nin: closedTicketStatuses
-    { fields: { 'component': 0 } }
-  ).fetch()
+  if Session.get('selectedSquad') is 'Measures'
+    []
+  else
+    Tickets.find(
+      component: ''
+      status: $nin: closedTicketStatuses
+      { fields: { 'component': 0 } }
+    ).fetch()
 
 @getTicketsWithoutEstimates = ->
   Tickets.find(
