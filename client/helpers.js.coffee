@@ -60,6 +60,16 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       true
     )
 
+  nonDevTasks = getNonDevTasks()
+  unless _(nonDevTasks).isEmpty()
+    drawDonutChart(
+      getGroupedData(nonDevTasks, 'points'),
+      'non-dev-tickets',
+      0.40,
+      283,
+      true
+    )
+
 @drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
     chart = nv.models.pieChart()
@@ -152,6 +162,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 @getGroupedData = (data, grouping) ->
   groupedData = _(data).groupBy(grouping)
   _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
+
+@getNonDevTasks = ->
+  Tickets.find(
+    labels: 'ExcludeFromKanburn'
+    status: $nin: closedTicketStatuses
+    type: 'Task'
+  ).fetch()
 
 @getOpenBugs = ->
   Tickets.find(

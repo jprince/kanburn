@@ -21,6 +21,9 @@ Template.home.helpers
   isLoading: ->
     Session.get('loading')
 
+  nonDevTasks: ->
+    getNonDevTasks()
+
   onHold: ->
     getTicketsOnHold()
 
