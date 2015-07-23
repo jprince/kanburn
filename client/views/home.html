@@ -81,7 +81,7 @@
               <div class="card">
                 <div id="non-dev-tickets">
                   <div class="card-header">
-                    Non-Dev Tasks (Hours)
+                    Non-Dev Task Distribution (Hours)
                   </div>
                   <div class="card-content">
                     <svg></svg>
@@ -96,7 +96,7 @@
                     Non-Dev Tasks
                   </div>
                   <div class="card-content">
-                    {{> ticketList tickets=nonDevTasks excludePoints=true}}
+                    {{> ticketList tickets=nonDevTasks excludePoints=true showLoggedTime=true }}
                   </div>
                 </div>
               </div>

@@ -62,13 +62,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
   nonDevTasks = getNonDevTasks()
   unless _(nonDevTasks).isEmpty()
-    drawDonutChart(
-      getGroupedData(nonDevTasks, 'points'),
-      'non-dev-tickets',
-      0.40,
-      283,
-      true
-    )
+    drawDonutChart(getNonDevTasksTimeSpent, 'non-dev-tickets', 0.40, 283, false)
 
 @drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
@@ -79,7 +73,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       .height(size)
       .showLabels(false)
       .showLegend(showLegend)
-      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{Math.round(y)} </p>")
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
       .width(size)
       .x((d) -> d.label)
       .y((d) -> d.value)
@@ -169,6 +163,18 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     status: $nin: closedTicketStatuses
     type: 'Task'
   ).fetch()
+
+@getNonDevTasksTimeSpent = ->
+  nonDevTasks = Tickets.find(
+    labels: 'ExcludeFromKanburn'
+    status: $nin: closedTicketStatuses
+    type: 'Task'
+  ).fetch()
+  nonDevTasksTimeSpentData = nonDevTasks.map((value, key) ->
+    label: value.title
+    value: if value.timespent? then value.timespent else 0
+  )
+  nonDevTasksTimeSpentData
 
 @getOpenBugs = ->
   Tickets.find(
