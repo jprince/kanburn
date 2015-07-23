@@ -42,6 +42,10 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   unless _(allBugs).isEmpty()
     drawDonutChart(getGroupedData(allBugs, 'status'), 'bugs-by-status', 0.40, 283, true)
 
+  allTimeSpent = getAllTimeSpent()
+  unless _(allTimeSpent).isEmpty()
+    drawDonutChart(allTimeSpent, 'all-logged-work', 0.40, 450, true)
+
   openBugs = getOpenBugs()
   unless _(openBugs).isEmpty()
     drawDonutChart(getGroupedData(openBugs, 'priority'), 'open-bugs-by-priority', 0.40, 283, true)
@@ -60,9 +64,9 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       true
     )
 
-  nonDevTasks = getNonDevTasks()
-  unless _(nonDevTasks).isEmpty()
-    drawDonutChart(getNonDevTasksTimeSpent, 'non-dev-tickets', 0.40, 283, false)
+  NonDevTasksTimeSpent = getNonDevTasksTimeSpent()
+  unless _(NonDevTasksTimeSpent).isEmpty()
+    drawDonutChart(NonDevTasksTimeSpent, 'non-dev-tickets', 0.40, 450, false)
 
 @drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
@@ -73,7 +77,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       .height(size)
       .showLabels(false)
       .showLegend(showLegend)
-      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{Math.round(y)} </p>")
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
       .width(size)
       .x((d) -> d.label)
       .y((d) -> d.value)
@@ -93,6 +97,23 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     type: 'Bug'
     { fields: { 'points': 0 } }
   ).fetch()
+
+@getAllTimeSpent = ->
+  bugsTime = 4
+  featureTime = 7
+  nonDevTime = 5
+  allTime =
+    Bugs: bugsTime
+    Features: featureTime
+    NonDev: nonDevTime
+  console.log allTime
+  aggregatedData = _(allTime).map((value, key) ->
+    console.log value
+    label: key
+    value: value
+  )
+  console.log aggregatedData
+  aggregatedData
 
 @getClosedBugs = ->
   Tickets.find(
@@ -165,12 +186,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   ).fetch()
 
 @getNonDevTasksTimeSpent = ->
-  nonDevTasks = Tickets.find(
-    labels: 'ExcludeFromKanburn'
-    status: $nin: closedTicketStatuses
-    type: 'Task'
-  ).fetch()
-  nonDevTasksTimeSpentData = nonDevTasks.map((value, key) ->
+  nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
     label: value.title
     value: if value.timespent? then value.timespent/3600 else 0
   )
