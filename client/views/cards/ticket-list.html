@@ -24,10 +24,10 @@
         <td>{{ title }}</td>
         <td>{{ priority }}</td>
         <td>{{ status }}</td>
-        {{ #unless excludePoints }}
+        {{ #unless ../excludePoints }}
           <td>{{ points }}</td>
         {{ /unless }}
-        {{ #if showLoggedTime }}
+        {{ #if ../showLoggedTime }}
           <td>{{ timespent }}</td>
         {{ /if }}
       </tr>

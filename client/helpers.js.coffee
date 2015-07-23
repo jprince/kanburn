@@ -73,7 +73,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       .height(size)
       .showLabels(false)
       .showLegend(showLegend)
-      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{Math.round(y)} </p>")
       .width(size)
       .x((d) -> d.label)
       .y((d) -> d.value)
@@ -158,7 +158,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
 
 @getNonDevTasks = ->
-  Tickets.find(
+  nonDevTasks = Tickets.find(
     labels: 'ExcludeFromKanburn'
     status: $nin: closedTicketStatuses
     type: 'Task'
@@ -172,7 +172,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   ).fetch()
   nonDevTasksTimeSpentData = nonDevTasks.map((value, key) ->
     label: value.title
-    value: if value.timespent? then value.timespent else 0
+    value: if value.timespent? then value.timespent/3600 else 0
   )
   nonDevTasksTimeSpentData
 
