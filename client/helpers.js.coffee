@@ -103,13 +103,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   featureTime = 0
   nonDevTime = 0
   bugAddition = getAllBugs().forEach((ticket) ->
-    bugsTime += ticket.timespent/3600
+    bugsTime += ticket.timespent
   )
   featureAddition = getFeatureTickets().forEach((ticket) ->
-    featureTime += ticket.timespent/3600
+    featureTime += ticket.timespent
   )
   nonDevAddition = getNonDevTasks().forEach((ticket) ->
-    nonDevTime += ticket.timespent/3600
+    nonDevTime += ticket.timespent
   )
   allTime =
     Bugs: bugsTime
@@ -200,7 +200,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 @getNonDevTasksTimeSpent = ->
   nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
     label: value.title
-    value: if value.timespent? then value.timespent/3600 else 0
+    value: if value.timespent? then value.timespent else 0
   )
   nonDevTasksTimeSpentData
 

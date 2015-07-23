@@ -67,7 +67,7 @@ Meteor.publish 'tickets', (selectedSquad) ->
         priority: issue.fields.priority.name
         labels: issue.fields.labels
         status: issue.fields.status.name
-        timespent: issue.fields.timespent
+        timespent: issue.fields.timespent/3600
         title: issue.fields.summary
         type: issue.fields.issuetype.name
 
