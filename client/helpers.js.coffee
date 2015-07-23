@@ -99,20 +99,26 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   ).fetch()
 
 @getAllTimeSpent = ->
-  bugsTime = 4
-  featureTime = 7
-  nonDevTime = 5
+  bugsTime = 0
+  featureTime = 0
+  nonDevTime = 0
+  bugAddition = getAllBugs().forEach((ticket) ->
+    bugsTime += ticket.timespent/3600
+  )
+  featureAddition = getFeatureTickets().forEach((ticket) ->
+    featureTime += ticket.timespent/3600
+  )
+  nonDevAddition = getNonDevTasks().forEach((ticket) ->
+    nonDevTime += ticket.timespent/3600
+  )
   allTime =
     Bugs: bugsTime
     Features: featureTime
     NonDev: nonDevTime
-  console.log allTime
   aggregatedData = _(allTime).map((value, key) ->
-    console.log value
     label: key
     value: value
   )
-  console.log aggregatedData
   aggregatedData
 
 @getClosedBugs = ->
@@ -174,12 +180,18 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
   addWeekdaysToToday(calendarDaysRemaining)
 
+@getFeatureTickets = ->
+  Tickets.find(
+    labels: $ne: 'ExcludeFromKanburn'
+    type: $ne: 'Bug'
+  )
+
 @getGroupedData = (data, grouping) ->
   groupedData = _(data).groupBy(grouping)
   _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
 
 @getNonDevTasks = ->
-  nonDevTasks = Tickets.find(
+  Tickets.find(
     labels: 'ExcludeFromKanburn'
     status: $nin: closedTicketStatuses
     type: 'Task'
