@@ -103,6 +103,38 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   featureTime = 0
   nonDevTime = 0
   bugAddition = getAllBugs().forEach((ticket) ->
+    workForticket = ticket.worklog.forEach((log) ->
+      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+        bugsTime += log.time
+    )
+  )
+  featureAddition = getFeatureTickets().forEach((ticket) ->
+    workForticket = ticket.worklog.forEach((log) ->
+      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+        featureTime += log.time
+    )
+  )
+  nonDevAddition = getNonDevTasks().forEach((ticket) ->
+    workForticket = ticket.worklog.forEach((log) ->
+      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+        nonDevTime += log.time
+    )
+  )
+  allTime =
+    Bugs: bugsTime
+    Features: featureTime
+    NonDev: nonDevTime
+  aggregatedData = _(allTime).map((value, key) ->
+    label: key
+    value: value
+  )
+  aggregatedData
+
+@getAllTimeSpentRecently = ->
+  bugsTime = 0
+  featureTime = 0
+  nonDevTime = 0
+  bugAddition = getAllBugs().forEach((ticket) ->
     bugsTime += ticket.timespent
   )
   featureAddition = getFeatureTickets().forEach((ticket) ->
@@ -199,6 +231,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
 @getNonDevTasksTimeSpent = ->
   nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
+    console.log value
     label: value.title
     value: if value.timespent? then value.timespent else 0
   )

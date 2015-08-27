@@ -22,7 +22,6 @@ Template.home.helpers
     Session.get('loading')
 
   nonDevTasks: ->
-    console.log getNonDevTasks()
     getNonDevTasks()
 
   onHold: ->

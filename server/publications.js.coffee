@@ -15,7 +15,7 @@ Meteor.publish 'tickets', (selectedSquad) ->
   headerValue = CryptoJS.enc.Utf8.parse("#{username}:#{password}")
   authorizationHeader = "Basic #{CryptoJS.enc.Base64.stringify(headerValue)}"
   baseUrl = 'https://jira.arcadiasolutions.com/rest/api/latest/search?jql='
-  fields = 'components,customfield_10002,issuetype,labels,priority,status,summary,timespent'
+  fields = 'components,customfield_10002,issuetype,labels,priority,status,summary,timespent,worklog'
 
   apiRoute = (filterId) ->
     "#{baseUrl}filter=#{filterId}&fields=#{fields}&maxResults=1000"
@@ -60,6 +60,11 @@ Meteor.publish 'tickets', (selectedSquad) ->
     ticketsForSelectedSquad = nonBugTickets.concat(bugTickets).concat(ticketsWithoutComponents)
 
     formattedTickets = _(ticketsForSelectedSquad).forEach (issue) ->
+      worklog = issue.fields.worklog.worklogs.map (worklog) ->
+        {
+          time: worklog.timeSpentSeconds/3600
+          date: moment(worklog.started).toDate()
+        }
       doc =
         component: if issue.fields.components[0] then issue.fields.components[0].name else ''
         id: issue.key
@@ -70,6 +75,8 @@ Meteor.publish 'tickets', (selectedSquad) ->
         timespent: issue.fields.timespent/3600
         title: issue.fields.summary
         type: issue.fields.issuetype.name
+        worklog: worklog
+
 
       self.added 'tickets', Random.id(), doc
 
