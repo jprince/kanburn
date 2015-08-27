@@ -231,9 +231,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
 @getNonDevTasksTimeSpent = ->
   nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
-    console.log value
+    totalTime = 0
+    workForticket = value.worklog.forEach((log) ->
+      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+        totalTime += log.time
+    )
     label: value.title
-    value: if value.timespent? then value.timespent else 0
+    value: if totalTime? then totalTime else 0
   )
   nonDevTasksTimeSpentData
 
