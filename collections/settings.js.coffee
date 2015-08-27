@@ -57,4 +57,12 @@ Settings.attachSchema(new SimpleSchema(
     min: 0
     decimal: true
     optional: false
+  analysisStartDate:
+    type: Date
+    label: "Start Date for Time Analysis"
+    optional: true
+  analysisEndDate:
+    type: Date
+    label: "End Date for Time Analysis"
+    optional: true
 ))

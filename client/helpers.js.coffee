@@ -104,25 +104,25 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   nonDevTime = 0
   bugAddition = getAllBugs().forEach((ticket) ->
     workForticket = ticket.worklog.forEach((log) ->
-      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date <= getEndDate() and log.date >= getStartDate()
         bugsTime += log.time
     )
   )
   featureAddition = getFeatureTickets().forEach((ticket) ->
     workForticket = ticket.worklog.forEach((log) ->
-      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date <= getEndDate() and log.date >= getStartDate()
         featureTime += log.time
     )
   )
   nonDevAddition = getNonDevTasks().forEach((ticket) ->
     workForticket = ticket.worklog.forEach((log) ->
-      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date <= getEndDate() and log.date >= getStartDate()
         nonDevTime += log.time
     )
   )
   allTime =
     Bugs: bugsTime
-    Features: featureTime
+    NewDevelopment: featureTime
     NonDev: nonDevTime
   aggregatedData = _(allTime).map((value, key) ->
     label: key
@@ -189,6 +189,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     )
     aggregatedData
 
+@getEndDate = ->
+  settings = getSettings()
+  if settings.analysisEndDate
+    moment(settings.analysisEndDate).toDate()
+  else
+    moment().toDate()
+
 @getEstimatedCompletionDate = ->
   settings = getSettings()
   unless settings is undefined
@@ -233,7 +240,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
     totalTime = 0
     workForticket = value.worklog.forEach((log) ->
-      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date <= getEndDate() and log.date >= getStartDate()
         totalTime += log.time
     )
     label: value.title
@@ -267,6 +274,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     { name: 'Platform 5.0', activeClass: isActiveSquad('Platform 5.0') }
     { name: 'Measures', activeClass: isActiveSquad('Measures') }
   ]
+
+@getStartDate = ->
+  settings = getSettings()
+  if settings.analysisStartDate
+    moment(settings.analysisStartDate).toDate()
+  else
+    moment('7/20/2015').toDate()
 
 @getTicketsOnHold = ->
   Tickets.find(
