@@ -104,19 +104,19 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   nonDevTime = 0
   bugAddition = getAllBugs().forEach((ticket) ->
     workForticket = ticket.worklog.forEach((log) ->
-      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
         bugsTime += log.time
     )
   )
   featureAddition = getFeatureTickets().forEach((ticket) ->
     workForticket = ticket.worklog.forEach((log) ->
-      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
         featureTime += log.time
     )
   )
   nonDevAddition = getNonDevTasks().forEach((ticket) ->
     workForticket = ticket.worklog.forEach((log) ->
-      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
         nonDevTime += log.time
     )
   )
@@ -233,7 +233,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
     totalTime = 0
     workForticket = value.worklog.forEach((log) ->
-      if log.date < moment('8/21/2015').toDate() and log.date > moment('7/19/2015').toDate()
+      if log.date < moment().toDate() and log.date > moment('7/19/2015').toDate()
         totalTime += log.time
     )
     label: value.title
