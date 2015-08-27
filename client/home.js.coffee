@@ -18,6 +18,9 @@ Template.home.helpers
   daysRemaining: ->
     calculateDays(getOpenTicketsWithEstimates(), getOpenBugs())
 
+  endDate: ->
+    moment(getEndDate()).format('M/D/YY')
+
   isLoading: ->
     Session.get('loading')
 
@@ -32,6 +35,9 @@ Template.home.helpers
     if release = getRelease()
       releaseDate = adjustForTimezone(release.releaseDate)
       estimatedCompletionDate <= releaseDate
+
+  startDate: ->
+    moment(getStartDate()).format('M/D/YY')
 
   thereAreBugs: ->
     not _(getAllBugs()).isEmpty()
