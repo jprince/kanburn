@@ -77,6 +77,49 @@
         </div>
         <div class="item">
           <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div id="all-logged-work">
+                  <div class="card-header">
+                    All Hours Between {{ startDate }} and {{ endDate }}
+                  </div>
+                  <div class="card-content">
+                    <svg></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="card">
+                <div id="non-dev-tickets">
+                  <div class="card-header">
+                    Non-Dev Hours Between {{ startDate }} and {{ endDate }}
+                  </div>
+                  <div class="card-content">
+                    <svg></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  Non-Dev Tasks
+                </div>
+                <div class="card-content">
+                  {{> ticketList tickets=nonDevTasks excludePoints=true showLoggedTime=true }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="row">
             <div class="col-md-4">
               <div class="card">
                 <div id="tickets-by-points">
@@ -90,20 +133,20 @@
               </div>
             </div>
 
-              <div class="col-md-8">
-                <div class="card">
-                  <div class="card-header">
-                    Critical Defects
-                  </div>
-                  <div class="card-content">
-                    {{ #if thereAreCriticalBugs }}
-                      {{> ticketList tickets=criticalBugs excludePoints=true}}
-                    {{ else }}
-                      <p>No critical defects</p>
-                    {{ /if }}
-                  </div>
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header">
+                  Critical Defects
+                </div>
+                <div class="card-content">
+                  {{ #if thereAreCriticalBugs }}
+                    {{> ticketList tickets=criticalBugs excludePoints=true}}
+                  {{ else }}
+                    <p>No critical defects</p>
+                  {{ /if }}
                 </div>
               </div>
+            </div>
           </div>
         </div>
         {{ #if thereAreTicketsWithoutEstimates }}

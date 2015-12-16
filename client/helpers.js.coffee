@@ -42,6 +42,10 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
   unless _(allBugs).isEmpty()
     drawDonutChart(getGroupedData(allBugs, 'status'), 'bugs-by-status', 0.40, 283, true)
 
+  allTimeSpent = getAllTimeSpent()
+  unless _(allTimeSpent).isEmpty()
+    drawDonutChart(allTimeSpent, 'all-logged-work', 0.40, 450, true)
+
   openBugs = getOpenBugs()
   unless _(openBugs).isEmpty()
     drawDonutChart(getGroupedData(openBugs, 'priority'), 'open-bugs-by-priority', 0.40, 283, true)
@@ -60,6 +64,10 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       true
     )
 
+  NonDevTasksTimeSpent = getNonDevTasksTimeSpent()
+  unless _(NonDevTasksTimeSpent).isEmpty()
+    drawDonutChart(NonDevTasksTimeSpent, 'non-dev-tickets', 0.40, 450, false)
+
 @drawDonutChart = (data, domId, ratio, size, showLegend) ->
   nv.addGraph ->
     chart = nv.models.pieChart()
@@ -69,7 +77,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
       .height(size)
       .showLabels(false)
       .showLegend(showLegend)
-      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{Math.round(y)} </p>")
+      .tooltipContent((key, y, e) -> "<h3> #{key} </h3> <p> #{y} </p>")
       .width(size)
       .x((d) -> d.label)
       .y((d) -> d.value)
@@ -89,6 +97,61 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     type: 'Bug'
     { fields: { 'points': 0 } }
   ).fetch()
+
+@getAllTimeSpent = ->
+  bugsTime = 0
+  featureTime = 0
+  nonDevTime = 0
+  bugAddition = getAllBugs().forEach((ticket) ->
+    workForticket = ticket.worklog.forEach((log) ->
+      if log.date <= getEndDate() and log.date >= getStartDate()
+        bugsTime += log.time
+    )
+  )
+  featureAddition = getFeatureTickets().forEach((ticket) ->
+    workForticket = ticket.worklog.forEach((log) ->
+      if log.date <= getEndDate() and log.date >= getStartDate()
+        featureTime += log.time
+    )
+  )
+  nonDevAddition = getNonDevTasks().forEach((ticket) ->
+    workForticket = ticket.worklog.forEach((log) ->
+      if log.date <= getEndDate() and log.date >= getStartDate()
+        nonDevTime += log.time
+    )
+  )
+  allTime =
+    Bugs: bugsTime
+    NewDevelopment: featureTime
+    NonDev: nonDevTime
+  aggregatedData = _(allTime).map((value, key) ->
+    label: key
+    value: value
+  )
+  aggregatedData
+
+@getAllTimeSpentRecently = ->
+  bugsTime = 0
+  featureTime = 0
+  nonDevTime = 0
+  bugAddition = getAllBugs().forEach((ticket) ->
+    bugsTime += ticket.timespent
+  )
+  featureAddition = getFeatureTickets().forEach((ticket) ->
+    featureTime += ticket.timespent
+  )
+  nonDevAddition = getNonDevTasks().forEach((ticket) ->
+    nonDevTime += ticket.timespent
+  )
+  allTime =
+    Bugs: bugsTime
+    Features: featureTime
+    NonDev: nonDevTime
+  aggregatedData = _(allTime).map((value, key) ->
+    label: key
+    value: value
+  )
+  aggregatedData
 
 @getClosedBugs = ->
   Tickets.find(
@@ -126,6 +189,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     )
     aggregatedData
 
+@getEndDate = ->
+  settings = getSettings()
+  if settings.analysisEndDate
+    moment(settings.analysisEndDate).toDate()
+  else
+    moment().toDate()
+
 @getEstimatedCompletionDate = ->
   settings = getSettings()
   unless settings is undefined
@@ -149,9 +219,34 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
   addWeekdaysToToday(calendarDaysRemaining)
 
+@getFeatureTickets = ->
+  Tickets.find(
+    labels: $ne: 'ExcludeFromKanburn'
+    type: $ne: 'Bug'
+  )
+
 @getGroupedData = (data, grouping) ->
   groupedData = _(data).groupBy(grouping)
   _(groupedData).map((value, key) -> { label: key, value: Math.round(value.length) })
+
+@getNonDevTasks = ->
+  Tickets.find(
+    labels: 'ExcludeFromKanburn'
+    status: $nin: closedTicketStatuses
+    type: 'Task'
+  ).fetch()
+
+@getNonDevTasksTimeSpent = ->
+  nonDevTasksTimeSpentData = getNonDevTasks().map((value, key) ->
+    totalTime = 0
+    workForticket = value.worklog.forEach((log) ->
+      if log.date <= getEndDate() and log.date >= getStartDate()
+        totalTime += log.time
+    )
+    label: value.title
+    value: if totalTime? then totalTime else 0
+  )
+  nonDevTasksTimeSpentData
 
 @getOpenBugs = ->
   Tickets.find(
@@ -179,6 +274,13 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
     { name: 'Platform 5.0', activeClass: isActiveSquad('Platform 5.0') }
     { name: 'Measures', activeClass: isActiveSquad('Measures') }
   ]
+
+@getStartDate = ->
+  settings = getSettings()
+  if settings.analysisStartDate
+    moment(settings.analysisStartDate).toDate()
+  else
+    moment('7/20/2015').toDate()
 
 @getTicketsOnHold = ->
   Tickets.find(

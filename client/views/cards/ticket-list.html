@@ -11,6 +11,9 @@
         {{ #unless excludePoints }}
           <th>Story Points</th>
         {{ /unless }}
+        {{ #if showLoggedTime }}
+          <th>Logged Time</th>
+        {{ /if }}
       </tr>
     </thead>
     <tbody>
@@ -21,9 +24,12 @@
         <td>{{ title }}</td>
         <td>{{ priority }}</td>
         <td>{{ status }}</td>
-        {{ #unless excludePoints }}
+        {{ #unless ../excludePoints }}
           <td>{{ points }}</td>
         {{ /unless }}
+        {{ #if ../showLoggedTime }}
+          <td>{{ timespent }}</td>
+        {{ /if }}
       </tr>
       {{ /each }}
     </tbody>
