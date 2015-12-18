@@ -21,7 +21,7 @@ Meteor.publish 'tickets', (selectedSquad) ->
     "#{baseUrl}filter=#{filterId}&fields=#{fields}&maxResults=1000"
 
   jiraFilterMappings =
-    'Front End':
+    'Web':
       nonBugTickets: '11475'
       bugTickets: '11473'
     'Platform':

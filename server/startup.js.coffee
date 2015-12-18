@@ -7,7 +7,7 @@ Meteor.startup ->
     removeReleases: ->
       Releases.remove({})
 
-  squads = ['Front End', 'Platform', 'Platform 5.0', 'Measures']
+  squads = ['Web', 'Platform', 'Platform 5.0', 'Measures']
   _(squads).each (squad) ->
     release =
       Releases.find(
@@ -16,7 +16,7 @@ Meteor.startup ->
 
     if _(release).isEmpty()
       switch squad
-        when 'Front End'
+        when 'Web'
           name = 'FE4.9'
           releaseDate = new Date('07/31/2015')
         when 'Platform'

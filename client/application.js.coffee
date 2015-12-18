@@ -1,4 +1,4 @@
-Session.setDefault 'selectedSquad', 'Front End'
+Session.setDefault 'selectedSquad', 'Web'
 
 Tracker.autorun ->
   Meteor.subscribe('releases', Session.get('selectedSquad'))
