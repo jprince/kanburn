@@ -18,8 +18,10 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 
     bugEstimates = bugTickets.length * settings.bugEstimate
 
-    daysByPoints.reduce(((daysSoFar, option) ->
+    totalDays = daysByPoints.reduce(((daysSoFar, option) ->
       daysSoFar + option), 0) + bugEstimates
+
+    Math.round(totalDays)
 
 @chartColors = ->
   ['#74C449', '#12baae', '#127bb7', '#7c12b5', '#b2115c', '#af5011', '#aaad11']
