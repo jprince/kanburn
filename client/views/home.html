@@ -58,7 +58,22 @@
                 {{ /if }}
               </div>
             </div>
-
+            <div class="col-md-4">
+              <div class="card">
+                <div id="tickets-by-points">
+                  <div class="card-header">
+                    Open Tickets, by Estimate (Points)
+                  </div>
+                  <div class="card-content">
+                    <svg></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="row">
             <div class="col-md-4">
               <div class="card">
                 {{ #if thereAreBugs }}
@@ -73,37 +88,21 @@
                 {{ /if }}
               </div>
             </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="row">
-            <div class="col-md-4">
+
+            <div class="col-md-8">
               <div class="card">
-                <div id="tickets-by-points">
-                  <div class="card-header">
-                    Open Tickets, by Estimate (Points)
-                  </div>
-                  <div class="card-content">
-                    <svg></svg>
-                  </div>
+                <div class="card-header">
+                  Critical Defects
+                </div>
+                <div class="card-content">
+                  {{ #if thereAreCriticalBugs }}
+                    {{> ticketList tickets=criticalBugs excludePoints=true}}
+                  {{ else }}
+                    <p>No critical defects</p>
+                  {{ /if }}
                 </div>
               </div>
             </div>
-
-              <div class="col-md-8">
-                <div class="card">
-                  <div class="card-header">
-                    Critical Defects
-                  </div>
-                  <div class="card-content">
-                    {{ #if thereAreCriticalBugs }}
-                      {{> ticketList tickets=criticalBugs excludePoints=true}}
-                    {{ else }}
-                      <p>No critical defects</p>
-                    {{ /if }}
-                  </div>
-                </div>
-              </div>
           </div>
         </div>
         {{ #if thereAreTicketsWithoutEstimates }}
