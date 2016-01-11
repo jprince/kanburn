@@ -12,6 +12,7 @@ Meteor.publish 'tickets', (selectedSquad) ->
   self = @
   username = process.env.JIRA_USERNAME
   password = process.env.JIRA_PASSWORD
+  console.log username
   headerValue = CryptoJS.enc.Utf8.parse("#{username}:#{password}")
   authorizationHeader = "Basic #{CryptoJS.enc.Base64.stringify(headerValue)}"
   baseUrl = 'https://jira.arcadiasolutions.com/rest/api/latest/search?jql='
