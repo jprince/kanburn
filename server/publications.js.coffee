@@ -17,55 +17,33 @@ Meteor.publish 'tickets', (selectedSquad) ->
   baseUrl = 'https://jira.arcadiasolutions.com/rest/api/latest/search?jql='
   fields = 'components,customfield_10002,issuetype,labels,priority,status,summary'
 
-  apiRoute = (filterId) ->
-    "#{baseUrl}filter=#{filterId}&fields=#{fields}&maxResults=1000"
+  fetchTickets = (filterId) ->
+    HTTP.get(
+      "#{baseUrl}filter=#{filterId}&fields=#{fields}&maxResults=1000",
+      headers:
+        "Authorization": authorizationHeader
+    ).data.issues
+
 
   jiraFilterMappings =
-    'Web':
-      nonBugTickets: '11475'
-      bugTickets: '11473'
-    'Platform':
-      nonBugTickets: '11476'
-      bugTickets: '11474'
-    'Platform 5.0':
-      nonBugTickets: '12029'
-      bugTickets: '12028'
-    'Measures':
-      nonBugTickets: '12462'
-      bugTickets: '12461'
-    withoutComponents: '11472'
+    'Web': '11475'
+    'Platform': '11476'
+    'Platform 5.0': '12029'
+    'Measures': '12462'
+    'Without Component': '11472'
 
   try
-    nonBugTickets =
-      HTTP.get(
-        apiRoute(jiraFilterMappings["#{selectedSquad}"].nonBugTickets),
-        headers:
-          "Authorization": authorizationHeader
-      ).data.issues
-
-    bugTickets =
-      HTTP.get(
-        apiRoute(jiraFilterMappings["#{selectedSquad}"].bugTickets),
-        headers:
-          "Authorization": authorizationHeader
-      ).data.issues
-
-    ticketsWithoutComponents =
-      HTTP.get(
-        apiRoute(jiraFilterMappings.withoutComponents),
-        headers:
-          "Authorization": authorizationHeader
-      ).data.issues
-
-    ticketsForSelectedSquad = nonBugTickets.concat(bugTickets).concat(ticketsWithoutComponents)
+    tickets = fetchTickets(jiraFilterMappings["#{selectedSquad}"])
+    ticketsWithoutComponents = fetchTickets(jiraFilterMappings['Without Component'])
+    ticketsForSelectedSquad = tickets.concat(ticketsWithoutComponents)
 
     formattedTickets = _(ticketsForSelectedSquad).forEach (issue) ->
       doc =
         component: if issue.fields.components[0] then issue.fields.components[0].name else ''
         id: issue.key
+        labels: issue.fields.labels
         points: issue.fields.customfield_10002 or ''
         priority: issue.fields.priority.name
-        labels: issue.fields.labels
         status: issue.fields.status.name
         title: issue.fields.summary
         type: issue.fields.issuetype.name

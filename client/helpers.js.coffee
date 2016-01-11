@@ -1,4 +1,4 @@
-closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
+closedTicketStatuses = ['Closed', 'Engineering QA', 'Integration Test', 'Review']
 
 @adjustForTimezone = (date) ->
   dateObject = moment(date)
@@ -42,7 +42,7 @@ closedTicketStatuses = ['Closed', 'Delivery QA', 'Deployed', 'Review']
 @drawCharts = ->
   allBugs = getAllBugs()
   unless _(allBugs).isEmpty()
-    drawDonutChart(getGroupedData(allBugs, 'status'), 'bugs-by-status', 0.40, 283, true)
+    drawDonutChart(getGroupedData(allBugs, 'status'), 'bugs-by-status', 0.40, 308, true)
 
   openBugs = getOpenBugs()
   unless _(openBugs).isEmpty()
