@@ -200,6 +200,7 @@ closedTicketStatuses = ['Closed', 'Engineering QA', 'Integration Test', 'Review'
 
 @getTicketsWithoutEstimates = ->
   Tickets.find(
+    labels: $ne: 'ExcludeFromKanburn'
     points: $in: ['', 0]
     type: $ne: 'Bug'
     { fields: { 'points': 0 } }
