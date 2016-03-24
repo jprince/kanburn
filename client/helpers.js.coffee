@@ -10,7 +10,7 @@ closedTicketStatuses = ['Closed', 'Engineering QA', 'Integration Test', 'Review'
   settings = getSettings()
 
   unless settings is undefined
-    pointOptions = [1..13]
+    pointOptions = [1..55]
 
     daysByPoints =
       for point in pointOptions
@@ -27,9 +27,9 @@ closedTicketStatuses = ['Closed', 'Engineering QA', 'Integration Test', 'Review'
   ['#74C449', '#12baae', '#127bb7', '#7c12b5', '#b2115c', '#af5011', '#aaad11']
 
 @convertPointsToDays = (points) ->
-  if Session.get('selectedSquad') in ['Web', 'Measures']
-    settings = getSettings()
+  settings = getSettings()
 
+  if Session.get('selectedSquad') in ['Web', 'Measures']
     switch points
       when 1 then settings.oneStoryPointEstimate
       when 2 then settings.twoStoryPointEstimate
@@ -37,7 +37,11 @@ closedTicketStatuses = ['Closed', 'Engineering QA', 'Integration Test', 'Review'
       when 4 then settings.fourStoryPointEstimate
       when 5 then settings.fiveStoryPointEstimate
       else 0
-  else points
+  else
+    if settings.estimateUnits is 'Days'
+      points
+    else
+      points / 8
 
 @drawCharts = ->
   allBugs = getAllBugs()

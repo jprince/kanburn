@@ -15,6 +15,10 @@ Settings.attachSchema(new SimpleSchema(
     min: 0
     max: 1
     decimal: true
+  estimateUnits:
+    type: String
+    label: "Estimate units"
+    allowedValues: ['Days', 'Hours']
   oneStoryPointEstimate:
     type: Number
     label: "1 story point estimate (days)"
